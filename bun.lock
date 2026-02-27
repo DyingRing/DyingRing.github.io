@@ -26,6 +26,7 @@
         "astro": "^5.17.3",
         "astro-auto-import": "^0.5.1",
         "cn-font-split": "^7.4.1",
+        "crypto-js": "^4.2.0",
         "es-toolkit": "^1.44.0",
         "i18next": "^25.8.13",
         "katex": "^0.16.33",
@@ -56,6 +57,7 @@
         "@shikijs/colorized-brackets": "^3.23.0",
         "@shikijs/transformers": "^3.23.0",
         "@types/bun": "^1.3.9",
+        "@types/crypto-js": "^4.2.2",
         "@unocss/preset-attributify": "^66.6.0",
         "@unocss/preset-icons": "^66.6.0",
         "@unocss/preset-wind4": "^66.6.0",
@@ -597,6 +599,8 @@
 
     "@types/cli-progress": ["@types/cli-progress@3.11.6", "https://registry.npmmirror.com/@types/cli-progress/-/cli-progress-3.11.6.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-cE3+jb9WRlu+uOSAugewNpITJDt1VF8dHOopPO4IABFc3SXYL5WE/+PTz/FCdZRRfIujiWW3n3aMbv1eIGVRWA=="],
 
+    "@types/crypto-js": ["@types/crypto-js@4.2.2", "https://registry.npmmirror.com/@types/crypto-js/-/crypto-js-4.2.2.tgz", {}, "sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ=="],
+
     "@types/debug": ["@types/debug@4.1.12", "https://registry.npmmirror.com/@types/debug/-/debug-4.1.12.tgz", { "dependencies": { "@types/ms": "*" } }, "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ=="],
 
     "@types/estree": ["@types/estree@1.0.8", "https://registry.npmmirror.com/@types/estree/-/estree-1.0.8.tgz", {}, "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="],
@@ -962,6 +966,8 @@
     "cross-spawn": ["cross-spawn@7.0.6", "https://registry.npmmirror.com/cross-spawn/-/cross-spawn-7.0.6.tgz", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 
     "crossws": ["crossws@0.3.5", "https://registry.npmmirror.com/crossws/-/crossws-0.3.5.tgz", { "dependencies": { "uncrypto": "^0.1.3" } }, "sha512-ojKiDvcmByhwa8YYqbQI/hg7MEU0NC03+pSdEq4ZUnZR9xXpwk7E43SMNGkn+JxJGPFtNvQ48+vV2p+P1ml5PA=="],
+
+    "crypto-js": ["crypto-js@4.2.0", "https://registry.npmmirror.com/crypto-js/-/crypto-js-4.2.0.tgz", {}, "sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q=="],
 
     "crypto-random-string": ["crypto-random-string@2.0.0", "https://registry.npmmirror.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz", {}, "sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA=="],
 

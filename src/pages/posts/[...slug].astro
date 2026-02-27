@@ -8,11 +8,14 @@ import AiSimilarPosts from "@/components/post/AiSimilarPosts.astro";
 import AiSummaryCard from "@/components/post/AiSummaryCard.astro";
 import WalineComments from "@/components/post/WalineComments.svelte";
 import { getCollection, render } from "astro:content";
+import { experimental_AstroContainer } from "astro/container";
 import themeConfig from "@/theme.config";
 import type {
   TocItem,
   QuickNavigation,
 } from "@/components/sidebar/SidebarTypes";
+import type { EncryptedData } from "@/toolkit/encryption/types";
+import { encryptContent } from "@/toolkit/encryption/crypto";
 
 import "@/styles/post.css";
 
@@ -21,63 +24,104 @@ import { avatar } from "@/components/Images.astro";
 
 import "@/styles/spoiler.css";
 
+// 加密文章内容组件
+import EncryptedPostContent from "@/components/encrypted/EncryptedPost.svelte";
+
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   const sortedPosts = posts
     .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-  return sortedPosts.map((post, index) => {
-    const prevPost = index > 0 ? sortedPosts[index - 1] : undefined;
-    const nextPost =
-      index < sortedPosts.length - 1 ? sortedPosts[index + 1] : undefined;
+  const container = await experimental_AstroContainer.create();
 
-    // Get related posts from the same category
-    const categories = post.data.categories || [];
-    const relatedPosts =
-      categories.length > 0
-        ? sortedPosts
-            .filter(
-              (p) =>
-                p.id !== post.id &&
-                p.data.categories?.some((c) => categories.includes(c)),
-            )
-            .slice(0, 10)
-            .map((p) => ({
-              slug: p.id,
-              title: p.data.title,
-              date: p.data.date,
-              category: p.data.categories?.[0],
-            }))
-        : [];
+  return Promise.all(
+    sortedPosts.map(async (post, index) => {
+      const prevPost = index > 0 ? sortedPosts[index - 1] : undefined;
+      const nextPost =
+        index < sortedPosts.length - 1 ? sortedPosts[index + 1] : undefined;
 
-    return {
-      params: { slug: post.id },
-      props: {
-        post,
-        prevPost: prevPost
-          ? {
-              title: prevPost.data.title,
-              slug: prevPost.id,
-              category: prevPost.data.categories?.[0],
-              cover: prevPost.data.cover,
-            }
-          : undefined,
-        nextPost: nextPost
-          ? {
-              title: nextPost.data.title,
-              slug: nextPost.id,
-              category: nextPost.data.categories?.[0],
-              cover: nextPost.data.cover,
-            }
-          : undefined,
-        relatedPosts,
-      },
-    };
-  });
+      // Get related posts from the same category
+      const categories = post.data.categories || [];
+      const relatedPosts =
+        categories.length > 0
+          ? sortedPosts
+              .filter(
+                (p) =>
+                  p.id !== post.id &&
+                  p.data.categories?.some((c) => categories.includes(c)),
+              )
+              .slice(0, 10)
+              .map((p) => ({
+                slug: p.id,
+                title: p.data.title,
+                date: p.data.date,
+                category: p.data.categories?.[0],
+              }))
+          : [];
+
+      // 处理加密文章
+      let encryptedContent: EncryptedData | undefined;
+      let encryptedToc: EncryptedData | undefined;
+      let isEncrypted = false;
+
+      const { Content, headings } = await render(post);
+
+      if (post.data.encrypted && post.data.password) {
+        isEncrypted = true;
+
+        // 使用 renderToString 渲染文章内容为 HTML
+        const html = await container.renderToString(Content);
+
+        // 加密内容
+        encryptedContent = await encryptContent(html, post.data.password);
+
+        // 加密 TOC
+        const tocData = headings.map((h) => ({
+          id: h.slug,
+          text: h.text,
+          level: h.depth,
+        }));
+        if (tocData.length > 0) {
+          encryptedToc = await encryptContent(
+            JSON.stringify(tocData),
+            post.data.password,
+          );
+        }
+      }
+
+      return {
+        params: { slug: post.id },
+        props: {
+          post,
+          prevPost: prevPost
+            ? {
+                title: prevPost.data.title,
+                slug: prevPost.id,
+                category: prevPost.data.categories?.[0],
+                cover: prevPost.data.cover,
+              }
+            : undefined,
+          nextPost: nextPost
+            ? {
+                title: nextPost.data.title,
+                slug: nextPost.id,
+                category: nextPost.data.categories?.[0],
+                cover: nextPost.data.cover,
+              }
+            : undefined,
+          relatedPosts,
+          isEncrypted,
+          encryptedContent,
+          encryptedToc,
+          headings,
+        },
+      };
+    }),
+  );
 }
 
-const { post, prevPost, nextPost, relatedPosts } = Astro.props as {
+interface Props {
   post: import("astro:content").CollectionEntry<"posts">;
   prevPost?: {
     title: string;
@@ -97,16 +141,33 @@ const { post, prevPost, nextPost, relatedPosts } = Astro.props as {
     date: Date;
     category?: string;
   }[];
-};
+  isEncrypted: boolean;
+  encryptedContent?: EncryptedData;
+  encryptedToc?: EncryptedData;
+  headings: import("astro:content").RenderResult["headings"];
+}
 
-const { Content, headings } = await render(post);
+const {
+  post,
+  prevPost,
+  nextPost,
+  relatedPosts,
+  isEncrypted,
+  encryptedContent,
+  encryptedToc,
+  headings,
+} = Astro.props as Props;
 
-// Build TOC from headings
-const toc: TocItem[] = headings.map((h) => ({
-  id: h.slug,
-  text: h.text,
-  level: h.depth,
-}));
+const { Content } = await render(post);
+
+// Build TOC from headings (加密文章的 TOC 在前端解密后更新)
+const toc: TocItem[] = isEncrypted
+  ? []
+  : headings.map((h) => ({
+      id: h.slug,
+      text: h.text,
+      level: h.depth,
+    }));
 
 // Build quick navigation
 const navigation: QuickNavigation = {
@@ -169,7 +230,8 @@ interface PostAiSummary {
 let aiRecommendPosts: AiRecommendPost[] = [];
 let aiSummary: PostAiSummary | null = null;
 
-if (hycEnable && aiSummaryEnable) {
+// 加密文章不获取 AI 摘要和推荐
+if (!isEncrypted && hycEnable && aiSummaryEnable) {
   try {
     const { getPostSummary } = await import("@hyacine/cli/api");
 
@@ -197,7 +259,7 @@ if (hycEnable && aiSummaryEnable) {
   }
 }
 
-if (hycEnable && aiRecommendEnable) {
+if (!isEncrypted && hycEnable && aiRecommendEnable) {
   try {
     const { findSimilarPosts } = await import("@hyacine/cli/api");
     const similarResult = await findSimilarPosts({
@@ -254,17 +316,22 @@ const postMeta = {
       content={post.data.description ||
         post.body?.slice(0, 150).replace(/\s+/g, " ")}
     />
+    {/* 加密文章添加 noindex */}
+    {isEncrypted && <meta name="robots" content="noindex, nofollow" />}
   </Fragment>
 
   <Fragment>
-    <div class="article wrap">
+    <div
+      class="article wrap"
+      data-pagefind-ignore={isEncrypted ? "all" : undefined}
+    >
       <Breadcrumb categories={post.data.categories ?? undefined} />
 
       <article
         itemscope
         itemtype="http://schema.org/Article"
         class="post block"
-        data-pagefind-body
+        data-pagefind-body={!isEncrypted}
         lang="zh-CN"
       >
         <link itemprop="mainEntityOfPage" href={permalink} />
@@ -297,18 +364,33 @@ const postMeta = {
           wordCount={wordCount}
         />
 
-        <AiSummaryCard
-          summary={aiSummary?.content}
-          model={aiSummary?.model}
-          title={aiSummaryTitle}
-          showModel={aiSummaryShowModel}
-        />
+        {
+          !isEncrypted && (
+            <AiSummaryCard
+              summary={aiSummary?.content}
+              model={aiSummary?.model}
+              title={aiSummaryTitle}
+              showModel={aiSummaryShowModel}
+            />
+          )
+        }
 
-        <div class="body md" itemprop="articleBody" data-pagefind-body>
-          <Content />
+        <div class="body md" itemprop="articleBody">
+          {
+            isEncrypted && encryptedContent ? (
+              <EncryptedPostContent
+                client:load
+                encryptedContent={encryptedContent}
+                encryptedToc={encryptedToc}
+                title={post.data.title}
+              />
+            ) : (
+              <Content />
+            )
+          }
 
           {
-            post.data.tags && post.data.tags.length > 0 && (
+            !isEncrypted && post.data.tags && post.data.tags.length > 0 && (
               <div class="tags">
                 {post.data.tags.map((tag) => (
                   <a
@@ -324,10 +406,14 @@ const postMeta = {
           }
         </div>
 
-        <AiSimilarPosts
-          posts={aiRecommendPosts}
-          minSimilarity={aiRecommendMinSimilarity}
-        />
+        {
+          !isEncrypted && (
+            <AiSimilarPosts
+              posts={aiRecommendPosts}
+              minSimilarity={aiRecommendMinSimilarity}
+            />
+          )
+        }
 
         <PostFooter
           date={post.data.date}
@@ -350,7 +436,7 @@ const postMeta = {
     />
 
     {
-      commentsConfig.enable !== false && (
+      !isEncrypted && commentsConfig.enable !== false && (
         <div id="comments" class="comment">
           <WalineComments
             client:visible

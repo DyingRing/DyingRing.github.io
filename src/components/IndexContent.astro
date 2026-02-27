@@ -40,6 +40,20 @@ function calculateReadTime(wordCount: number): number {
   return Math.ceil(wordCount / wordsPerMinute);
 }
 
+function getExcerpt(post: CollectionEntry<"posts">): string {
+  if (post.data.encrypted) {
+    return t("post.encryptedExcerpt");
+  }
+
+  if (post.data.description) {
+    return post.data.description;
+  }
+  if (post.body) {
+    return post.body.substring(0, 300);
+  }
+  return "";
+}
+
 // Helper function to transform posts
 function transformPosts(postList: CollectionEntry<"posts">[]) {
   return postList.map((post) => {
@@ -52,7 +66,7 @@ function transformPosts(postList: CollectionEntry<"posts">[]) {
       title: post.data.title,
       url: `/posts/${post.id}/`,
       date: post.data.date,
-      excerpt: post.data.description || post.body?.substring(0, 300) || "",
+      excerpt: getExcerpt(post),
       cover: getPostCover(post),
       category: lastCategory,
       categoryUrl: lastCategory ? `/categories/${lastCategory}/` : undefined,

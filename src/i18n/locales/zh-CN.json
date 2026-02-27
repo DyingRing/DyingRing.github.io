@@ -31,7 +31,8 @@
       "CC-BY-NC-4.0": "署名-非商业性使用 4.0 国际 (CC BY-NC 4.0)",
       "CC-BY-NC-SA-4.0": "署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0)",
       "CC-BY-NC-ND-4.0": "署名-非商业性使用-禁止演绎 4.0 国际 (CC BY-NC-ND 4.0)"
-    }
+    },
+    "encryptedExcerpt": "这是一篇加密文章，无法显示摘要"
   },
   "category": {
     "title": "分类",
@@ -110,5 +111,14 @@
   "search": {
     "devModeSkipped": "当前为开发模式，已跳过 Pagefind 加载。",
     "buildHint": "请先执行构建（含索引生成）后再预览站内搜索效果。"
+  },
+  "encrypted": {
+    "title": "文章已加密",
+    "description": "这篇文章需要密码才能查看",
+    "passwordPlaceholder": "请输入密码",
+    "submit": "解密",
+    "decrypting": "正在解密内容...",
+    "error": "密码错误，请重试",
+    "passwordRequired": "请输入密码"
   }
 }

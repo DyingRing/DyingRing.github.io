@@ -52,7 +52,7 @@ export default defineConfig({
 
   integrations: [
     UnoCSS({
-      injectReset: true
+      injectReset: true,
     }),
     svelte({
       compilerOptions: {

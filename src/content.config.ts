@@ -31,6 +31,9 @@ const posts = defineCollection({
           "NOREPRINT",
         ])
         .optional(),
+      // 加密相关字段
+      encrypted: z.boolean().optional().default(false),
+      password: z.string().optional(), // 构建时用于加密，不会输出到前端
     }),
 });
 

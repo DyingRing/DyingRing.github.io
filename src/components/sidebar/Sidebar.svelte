@@ -11,6 +11,7 @@
   import type { Snippet } from "svelte";
   import { onMount } from "svelte";
   import { sidebarOpen } from "../../stores/sidebarStore";
+  import { encryptedTocStore } from "../../stores/encryptedTocStore";
   import { getT } from "@/i18n";
   import themeConfig from "@/theme.config";
   import SidebarContents from "./SidebarContents.svelte";
@@ -62,6 +63,22 @@
   let sidebarElement: HTMLElement | null = $state(null);
   let isAffix = $state(true);
 
+  // 合并静态 TOC 和加密文章解密后的 TOC
+  let decryptedToc = $state<TocItem[]>([]);
+
+  // 订阅加密 TOC 更新
+  $effect(() => {
+    const unsubscribe = encryptedTocStore.subscribe((newToc) => {
+      if (newToc && newToc.length > 0) {
+        decryptedToc = newToc;
+      }
+    });
+    return unsubscribe;
+  });
+
+  // 最终使用的 TOC：优先使用解密后的 TOC，否则使用静态 TOC
+  const effectiveToc = $derived(decryptedToc.length > 0 ? decryptedToc : toc);
+
   const menuSource = $derived(navLinks);
 
   // Determine which panels should be available
@@ -69,7 +86,7 @@
     const availablePanels: PanelConfig[] = [];
 
     // Contents panel (TOC) - only show if there are TOC items
-    if (toc && toc.length > 0) {
+    if (effectiveToc && effectiveToc.length > 0) {
       availablePanels.push({
         id: "contents",
         title: t("sidebar.panels.contents"),
@@ -194,7 +211,10 @@
             {:else if panel.id === "related"}
               <SidebarRelated posts={relatedPosts} {currentSlug} />
             {:else if panel.id === "contents"}
-              <SidebarContents {toc} isActive={activePanel === "contents"} />
+              <SidebarContents
+                toc={effectiveToc}
+                isActive={activePanel === "contents"}
+              />
             {/if}
           </SidebarPanel>
         {/each}

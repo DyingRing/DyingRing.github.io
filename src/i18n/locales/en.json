@@ -31,7 +31,8 @@
       "CC-BY-NC-4.0": "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
       "CC-BY-NC-SA-4.0": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
       "CC-BY-NC-ND-4.0": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)"
-    }
+    },
+    "encryptedExcerpt": "This is an encrypted post, the excerpt cannot be displayed"
   },
   "category": {
     "title": "Categories",
@@ -110,5 +111,14 @@
   "search": {
     "devModeSkipped": "Development mode is active, so Pagefind loading has been skipped.",
     "buildHint": "Please run a production build (with index generation) before previewing on-site search."
+  },
+  "encrypted": {
+    "title": "Encrypted Post",
+    "description": "This post requires a password to view",
+    "passwordPlaceholder": "Enter password",
+    "submit": "Decrypt",
+    "decrypting": "Decrypting content...",
+    "error": "Incorrect password, please try again",
+    "passwordRequired": "Please enter password"
   }
 }
