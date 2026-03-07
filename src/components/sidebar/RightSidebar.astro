@@ -2,6 +2,7 @@
 import { getT } from "@/i18n";
 import themeConfig from "@/theme.config";
 import type { CollectionEntry } from "astro:content";
+import { sample } from "es-toolkit/array";
 import SidebarCalendarPlaceholder from "./SidebarCalendarPlaceholder.astro";
 import AnnouncementContent from "@/content/announcement.md";
 
@@ -80,15 +81,18 @@ const latestMoments = moments.slice(0, 1).map((moment) => ({
     .trim(),
 }));
 
-const shuffledPosts = [...posts]
-  .sort(() => Math.random() - 0.5)
-  .slice(0, 1)
-  .map((post) => ({
-    id: post.id,
-    href: `/posts/${post.id}/`,
-    title: post.data.title,
-    description: post.data.description || String(post.body || ""),
-  }));
+const sampledPost = showRandomPosts ? sample(posts) : undefined;
+const shuffledPosts = sampledPost
+  ? [
+      {
+        id: sampledPost.id,
+        href: `/posts/${sampledPost.id}/`,
+        title: sampledPost.data.title,
+        description:
+          sampledPost.data.description || String(sampledPost.body || ""),
+      },
+    ]
+  : [];
 
 function formatMomentDate(date: Date): string {
   return date.toLocaleDateString(locale, {

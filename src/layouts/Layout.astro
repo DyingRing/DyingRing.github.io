@@ -79,12 +79,6 @@ const fixedCover = coverConfig.fixedCover?.enable
   ? resolveFixedCover(coverConfig.fixedCover.url)
   : undefined;
 
-// 仅在启用三栏布局且右栏开启 recentMoments 时才拉取 moments，避免无谓开销
-const shouldLoadMoments =
-  enableThirdColumn &&
-  sidebarConfig.rightSidebar &&
-  sidebarConfig.rightSidebar.recentMoments === true;
-
 // Get all posts for widgets
 const allPosts = await getCollection("posts");
 const posts = allPosts.filter((post) => !post.data.draft);
