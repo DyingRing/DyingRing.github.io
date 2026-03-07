@@ -47,8 +47,19 @@
   }
 
   .layout-three-column > .layout-extra-column.affix > .layout-extra-column__inner {
+    -ms-overflow-style: none;
+    max-height: calc(100vh - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     position: fixed;
+    scrollbar-width: none;
     top: 0;
     width: 15rem;
+  }
+
+  .layout-three-column
+    > .layout-extra-column.affix
+    > .layout-extra-column__inner::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -23,6 +23,7 @@ import { covers, resolveFixedCover } from "@/components/Images.astro";
 import FloatingToolbar from "@/components/FloatingToolbar.svelte";
 import TwoColumnLayout from "@/layouts/TwoColumnLayout.astro";
 import ThreeColumnLayout from "@/layouts/ThreeColumnLayout.astro";
+import { generateTagCloud } from "@/toolkit/posts/generateTagCloud";
 
 // Accept sidebar props from child pages
 interface PostMeta {
@@ -81,6 +82,29 @@ const moments = allMoments.sort(
 const rightSidebarPosts = posts.filter(
   (post) => !post.data.encrypted && !post.data.link,
 );
+const rightSidebarTagCounts = posts.reduce((acc, post) => {
+  post.data.tags?.forEach((tag) => {
+    acc.set(tag, (acc.get(tag) || 0) + 1);
+  });
+
+  return acc;
+}, new Map<string, number>());
+const rightSidebarTagCloud = generateTagCloud(
+  Array.from(rightSidebarTagCounts.entries()).map(([name, count]) => ({
+    name,
+    count,
+  })),
+  {
+    minFontSize: 12,
+    maxFontSize: 20,
+    startColor: "#8a8a8a",
+    endColor: "#0084ff",
+    limit: 16,
+  },
+).map((tag) => ({
+  ...tag,
+  href: `/tags/${encodeURIComponent(tag.name.toLowerCase().replace(/\s+/g, "-"))}/`,
+}));
 
 const siteState = {
   categories: allPosts.reduce((acc, post) => {
@@ -152,6 +176,7 @@ import SearchPage from "@/components/search/SearchPage.svelte";
           rightSidebarConfig={layoutConfig.rightSidebar}
           rightSidebarPosts={rightSidebarPosts}
           rightSidebarMoments={moments}
+          rightSidebarTagCloud={rightSidebarTagCloud}
           navLinks={navLinks}
           toc={toc}
           relatedPosts={relatedPosts}

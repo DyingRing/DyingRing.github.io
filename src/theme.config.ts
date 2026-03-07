@@ -162,9 +162,13 @@ export default defineConfig({
   layout: {
     mode: "three-column",
     rightSidebar: {
+      order: ["announcement", "search", "calendar", "recentMoments", "randomPosts", "tagCloud"],
+      announcement: true,
+      search: true,
       calendar: true,
       recentMoments: true,
       randomPosts: true,
+      tagCloud: true,
     },
   },
   friends: {

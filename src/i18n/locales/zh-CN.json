@@ -76,6 +76,12 @@
       "subtitle": "三栏布局预览",
       "placeholder": "更多侧栏内容正在路上"
     },
+    "search": {
+      "title": "全站搜索",
+      "subtitle": "快速定位内容",
+      "action": "打开搜索面板",
+      "helper": "复用现有 Pagefind 搜索，查文章、标签和关键词更省心。"
+    },
     "moments": {
       "title": "最近动态",
       "subtitle": "说说更新"
@@ -83,6 +89,15 @@
     "randomPosts": {
       "title": "随机文章",
       "subtitle": "换个口味"
+    },
+    "tagCloud": {
+      "title": "标签云",
+      "subtitle": "热门主题",
+      "browseAll": "查看全部标签 →"
+    },
+    "announcement": {
+      "title": "公告",
+      "subtitle": "站点小黑板"
     },
     "extra": {
       "title": "右栏",

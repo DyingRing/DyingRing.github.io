@@ -29,12 +29,30 @@ interface Props {
   author?: string;
   sidebarConfig?: SidebarConfig;
   rightSidebarConfig?: {
+    order?: Array<
+      | "announcement"
+      | "search"
+      | "calendar"
+      | "recentMoments"
+      | "randomPosts"
+      | "tagCloud"
+    >;
+    search?: boolean;
     calendar?: boolean;
     recentMoments?: boolean;
     randomPosts?: boolean;
+    tagCloud?: boolean;
+    announcement?: boolean;
   };
   rightSidebarPosts?: CollectionEntry<"posts">[];
   rightSidebarMoments?: CollectionEntry<"moments">[];
+  rightSidebarTagCloud?: Array<{
+    name: string;
+    count: number;
+    fontSize: number;
+    color: string;
+    href: string;
+  }>;
   navLinks?: NavItemType[];
   toc?: TocItem[];
   relatedPosts?: RelatedPost[];
@@ -59,6 +77,7 @@ const {
   rightSidebarConfig = {},
   rightSidebarPosts = [],
   rightSidebarMoments = [],
+  rightSidebarTagCloud = [],
   navLinks = [],
   toc = [],
   relatedPosts = [],
@@ -93,5 +112,6 @@ const {
     config={rightSidebarConfig}
     posts={rightSidebarPosts}
     moments={rightSidebarMoments}
+    tagCloudItems={rightSidebarTagCloud}
   />
 </div>

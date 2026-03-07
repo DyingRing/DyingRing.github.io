@@ -296,6 +296,22 @@ interface LayoutConfig {
    */
   rightSidebar?: {
     /**
+     * 右栏卡片显示顺序。
+     * - 支持的值："announcement" | "search" | "calendar" | "recentMoments" | "randomPosts" | "tagCloud"
+     * - 未填写的卡片会按默认顺序自动追加到末尾
+     */
+    order?: Array<
+      "announcement" | "search" | "calendar" | "recentMoments" | "randomPosts" | "tagCloud"
+    >;
+
+    /**
+     * 是否显示全站搜索卡片。
+     * - true：显示搜索入口卡片，并复用现有搜索浮层
+     * - false/未设置：隐藏
+     */
+    search?: boolean;
+
+    /**
      * 是否显示日历卡片。
      * - true/未设置：显示
      * - false：隐藏
@@ -315,6 +331,20 @@ interface LayoutConfig {
      * - false/未设置：隐藏
      */
     randomPosts?: boolean;
+
+    /**
+     * 是否显示标签云卡片。
+     * - true：显示热门标签云
+     * - false/未设置：隐藏
+     */
+    tagCloud?: boolean;
+
+    /**
+     * 是否显示公告卡片。
+     * - true：显示站点公告内容
+     * - false/未设置：隐藏
+     */
+    announcement?: boolean;
   };
 }
 
