@@ -63,8 +63,15 @@ const commentsConfig = themeConfig.comments || {};
 const walineConfig = commentsConfig.waline || {};
 const visibilityTitleConfig = themeConfig.visibilityTitle || {};
 const layoutConfig = themeConfig.layout || {};
+const rightSidebarConfig = layoutConfig.rightSidebar || {};
 const layoutMode = layoutConfig.mode || "two-column";
 const enableThirdColumn = layoutMode === "three-column";
+const shouldComputeRightSidebarRandomPosts =
+  enableThirdColumn && rightSidebarConfig.randomPosts === true;
+const shouldComputeRightSidebarRecentMoments =
+  enableThirdColumn && rightSidebarConfig.recentMoments === true;
+const shouldComputeRightSidebarTagCloud =
+  enableThirdColumn && rightSidebarConfig.tagCloud === true;
 const ActiveLayout = enableThirdColumn ? ThreeColumnLayout : TwoColumnLayout;
 
 // fixedCover：通过 Images.astro 统一解析（静态导入走 <Image />，字符串走 <img> 兜底）
@@ -75,36 +82,43 @@ const fixedCover = coverConfig.fixedCover?.enable
 // Get all posts for widgets
 const allPosts = await getCollection("posts");
 const posts = allPosts.filter((post) => !post.data.draft);
-const allMoments = await getCollection("moments");
-const moments = allMoments.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-);
-const rightSidebarPosts = posts.filter(
-  (post) => !post.data.encrypted && !post.data.link,
-);
-const rightSidebarTagCounts = posts.reduce((acc, post) => {
-  post.data.tags?.forEach((tag) => {
-    acc.set(tag, (acc.get(tag) || 0) + 1);
-  });
+const moments = shouldComputeRightSidebarRecentMoments
+  ? (await getCollection("moments")).sort(
+      (a, b) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    )
+  : [];
+const rightSidebarPosts = shouldComputeRightSidebarRandomPosts
+  ? posts.filter((post) => !post.data.encrypted && !post.data.link)
+  : [];
+const rightSidebarTagCloud = shouldComputeRightSidebarTagCloud
+  ? (() => {
+      const rightSidebarTagCounts = posts.reduce((acc, post) => {
+        post.data.tags?.forEach((tag) => {
+          acc.set(tag, (acc.get(tag) || 0) + 1);
+        });
 
-  return acc;
-}, new Map<string, number>());
-const rightSidebarTagCloud = generateTagCloud(
-  Array.from(rightSidebarTagCounts.entries()).map(([name, count]) => ({
-    name,
-    count,
-  })),
-  {
-    minFontSize: 12,
-    maxFontSize: 20,
-    startColor: "#8a8a8a",
-    endColor: "#0084ff",
-    limit: 16,
-  },
-).map((tag) => ({
-  ...tag,
-  href: `/tags/${encodeURIComponent(tag.name.toLowerCase().replace(/\s+/g, "-"))}/`,
-}));
+        return acc;
+      }, new Map<string, number>());
+
+      return generateTagCloud(
+        Array.from(rightSidebarTagCounts.entries()).map(([name, count]) => ({
+          name,
+          count,
+        })),
+        {
+          minFontSize: 12,
+          maxFontSize: 20,
+          startColor: "#8a8a8a",
+          endColor: "#0084ff",
+          limit: 16,
+        },
+      ).map((tag) => ({
+        ...tag,
+        href: `/tags/${encodeURIComponent(tag.name.toLowerCase().replace(/\s+/g, "-"))}/`,
+      }));
+    })()
+  : [];
 
 const siteState = {
   categories: allPosts.reduce((acc, post) => {
@@ -173,7 +187,7 @@ import SearchPage from "@/components/search/SearchPage.svelte";
           siteName={siteName}
           author={sidebarConfig.author}
           sidebarConfig={sidebarConfig}
-          rightSidebarConfig={layoutConfig.rightSidebar}
+          rightSidebarConfig={rightSidebarConfig}
           rightSidebarPosts={rightSidebarPosts}
           rightSidebarMoments={moments}
           rightSidebarTagCloud={rightSidebarTagCloud}

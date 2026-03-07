@@ -16,6 +16,8 @@ const weekdayBase =
   locale === "zh-CN" ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
 const weekdays = weekdayBase.map((day) => {
+  // 2026-02-01 是星期日，这里仅用于 Intl.DateTimeFormat weekday 本地化格式化，
+  // 与实际日历渲染的 year/month 无关
   const date = new Date(2026, 2, 1 + ((day + 7) % 7));
   return weekdayFormatter.format(date);
 });
