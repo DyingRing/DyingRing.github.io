@@ -92,7 +92,7 @@
   }
 
   .social .item div {
-    color: var(--social-color, var(--color-grey-5));
+    color: var(--social-color, var(--grey-5));
   }
 
   .social .item:focus div,
