@@ -18,20 +18,13 @@
 </div>
 
 <style>
-  :root {
-    --box-bg-shadow: oklch(0 0 0 / 0.1);
-    --loading-cat-fur-base: oklch(78.524% 0.12388 69.513);
-    --loading-cat-fur-light: oklch(89.291% 0.04099 78.046);
-    --loading-cat-fur-dark: oklch(0.69 0.1 66);
-  }
-
   #loading {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 999;
+    z-index: var(--z-search-overlay);
     background-color: var(--grey-1);
     display: flex;
     justify-content: center;
@@ -73,16 +66,16 @@
     background-image: radial-gradient(
       transparent 0%,
       transparent 35%,
-      oklch(0.36 0.012 257) 35%,
-      oklch(0.36 0.012 257) 39%,
+      var(--loading-cat-line) 35%,
+      var(--loading-cat-line) 39%,
       var(--loading-cat-fur-base) 39%,
       var(--loading-cat-fur-base) 46%,
       var(--loading-cat-fur-light) 46%,
       var(--loading-cat-fur-light) 60%,
       var(--loading-cat-fur-base) 60%,
       var(--loading-cat-fur-base) 67%,
-      oklch(0.36 0.012 257) 67%,
-      oklch(0.36 0.012 257) 100%
+      var(--loading-cat-line) 67%,
+      var(--loading-cat-line) 100%
     );
     animation: 2.74s linear infinite body;
   }
@@ -92,12 +85,12 @@
     background-image: radial-gradient(
       transparent 0%,
       transparent 35%,
-      oklch(0.36 0.012 257) 35%,
-      oklch(0.36 0.012 257) 39%,
+      var(--loading-cat-line) 35%,
+      var(--loading-cat-line) 39%,
       var(--loading-cat-fur-base) 39%,
       var(--loading-cat-fur-base) 67%,
-      oklch(0.36 0.012 257) 67%,
-      oklch(0.36 0.012 257) 100%
+      var(--loading-cat-line) 67%,
+      var(--loading-cat-line) 100%
     );
   }
 
@@ -122,8 +115,8 @@
       linear-gradient(var(--grey-1) 65%, transparent 65%),
       radial-gradient(
         var(--grey-1) 51%,
-        oklch(0.36 0.012 257) 55%,
-        oklch(0.36 0.012 257) 68%,
+        var(--loading-cat-line) 55%,
+        var(--loading-cat-line) 68%,
         transparent 70%
       );
     transform: rotate(-66deg);
@@ -146,15 +139,15 @@
         1.0625em no-repeat,
       radial-gradient(
           circle,
-          oklch(0.36 0.012 257) 0%,
-          oklch(0.36 0.012 257) 6%,
+          var(--loading-cat-line) 0%,
+          var(--loading-cat-line) 6%,
           transparent 6%
         )
         0.75em -0.75em no-repeat,
       radial-gradient(
           circle,
-          oklch(0.36 0.012 257) 0%,
-          oklch(0.36 0.012 257) 6%,
+          var(--loading-cat-line) 0%,
+          var(--loading-cat-line) 6%,
           transparent 6%
         ) -0.75em -0.75em
         no-repeat,
@@ -167,16 +160,16 @@
       radial-gradient(
           circle,
           transparent 5%,
-          oklch(0.36 0.012 257) 5%,
-          oklch(0.36 0.012 257) 10%,
+          var(--loading-cat-line) 5%,
+          var(--loading-cat-line) 10%,
           transparent 10%
         ) -0.1875em -0.3125em
         no-repeat,
       radial-gradient(
           circle,
           transparent 5%,
-          oklch(0.36 0.012 257) 5%,
-          oklch(0.36 0.012 257) 10%,
+          var(--loading-cat-line) 5%,
+          var(--loading-cat-line) 10%,
           transparent 10%
         )
         0.1875em -0.3125em no-repeat,
@@ -184,16 +177,16 @@
         0 -0.1875em,
       linear-gradient(
         transparent 35%,
-        oklch(0.36 0.012 257) 35%,
-        oklch(0.36 0.012 257) 41%,
+        var(--loading-cat-line) 35%,
+        var(--loading-cat-line) 41%,
         transparent 41%,
         transparent 44%,
-        oklch(0.36 0.012 257) 44%,
-        oklch(0.36 0.012 257) 50%,
+        var(--loading-cat-line) 44%,
+        var(--loading-cat-line) 50%,
         transparent 50%,
         transparent 53%,
-        oklch(0.36 0.012 257) 53%,
-        oklch(0.36 0.012 257) 59%,
+        var(--loading-cat-line) 53%,
+        var(--loading-cat-line) 59%,
         transparent 59%
       );
   }
@@ -215,10 +208,10 @@
     position: absolute;
     top: 2.625em;
     left: 2.5em;
-    z-index: -1;
+    z-index: var(--z-behind);
     transform: rotate(25deg);
     background-color: var(--loading-cat-fur-dark);
-    border: 0.375em solid oklch(0.36 0.012 257);
+    border: 0.375em solid var(--loading-cat-line);
     border-bottom: 0;
     border-radius: 0.75em 0.75em 0 0;
   }
@@ -239,7 +232,7 @@
     position: absolute;
     top: 4.875em;
     left: 0.75em;
-    border: 0.375em solid oklch(0.36 0.012 257);
+    border: 0.375em solid var(--loading-cat-line);
     border-bottom: 0;
     border-radius: 50%;
     transform: rotate(21deg);
@@ -251,7 +244,7 @@
     width: 0.625em;
     height: 1.5625em;
     position: absolute;
-    border: 0.375em solid oklch(0.36 0.012 257);
+    border: 0.375em solid var(--loading-cat-line);
     background-color: var(--loading-cat-fur-base);
   }
 

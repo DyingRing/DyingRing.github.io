@@ -4,7 +4,7 @@
   padding: 1rem;
   position: relative;
   background: var(--note-bg, var(--grey-2));
-  color: var(--grey-6);
+  color: var(--note-text, var(--text-color));
   border-left: 0.25rem solid var(--note-border, var(--grey-4));
   font-size: 0.875rem;
   padding-left: 2.5rem;
@@ -15,7 +15,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem 1rem 1rem;
-  color: var(--grey-6);
+  color: var(--note-text, var(--text-color));
 }
 
 .md .note.note-card::before {
@@ -26,7 +26,7 @@
   flex: 0 0 auto;
   font-size: 2rem;
   line-height: 1;
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
 }
 
 .md .note.note-card .note-body {
@@ -36,7 +36,7 @@
 
 .md .note.note-card .note-title {
   font-weight: 700;
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
   margin-bottom: 0.25rem;
 }
 
@@ -106,7 +106,7 @@
 
 .md .mdx-collapse__summary::before {
   content: "▸";
-  color: var(--grey-4);
+  color: var(--text-color-muted);
   margin-right: 0.5rem;
 }
 
@@ -141,7 +141,7 @@
 .md .mdx-collapse[open] {
   background: var(--note-bg, none);
   border-radius: 0.25rem;
-  color: var(--grey-6);
+  color: var(--text-color);
 }
 
 .md .mdx-collapse[open] .mdx-collapse__summary {
@@ -171,7 +171,7 @@
 .md .mdx-collapse[open].success > .mdx-collapse__summary,
 .md .mdx-collapse[open].warning > .mdx-collapse__summary,
 .md .mdx-collapse[open].danger > .mdx-collapse__summary {
-  color: oklch(1 0 0);
+  color: var(--grey-0);
   border-radius: 0.25rem 0.25rem 0 0;
 }
 
@@ -180,7 +180,7 @@
 .md .mdx-collapse[open].success > .mdx-collapse__summary::before,
 .md .mdx-collapse[open].warning > .mdx-collapse__summary::before,
 .md .mdx-collapse[open].danger > .mdx-collapse__summary::before {
-  color: oklch(1 0 0);
+  color: var(--grey-0);
 }
 
 .md .kbd,
@@ -189,21 +189,21 @@
   background-image: linear-gradient(var(--grey-2), var(--grey-0), var(--grey-2));
   border: 0.0625rem solid var(--grey-4);
   border-radius: 0.2rem;
-  box-shadow: 0.1rem 0.1rem 0.2rem oklch(0 0 0 / 0.1);
+  box-shadow: 0.1rem 0.1rem 0.2rem var(--grey-9-a1);
   font-family: inherit;
   padding: 0.1rem 0.3rem;
   white-space: nowrap;
 }
 
 .md mark.highlight {
-  background-color: var(--note-bg, oklch(0.954 0.068 78.1));
+  background-color: var(--note-bg, color-mix(in oklch, var(--color-yellow) 25%, transparent));
   color: inherit;
   border-radius: 0.2rem;
   padding: 0 0.2rem;
 }
 
 .md mark.highlight.default {
-  --note-bg: oklch(0.954 0.068 78.1);
+  --note-bg: color-mix(in oklch, var(--color-yellow) 25%, transparent);
 }
 
 span.label {
@@ -213,7 +213,7 @@ span.label {
   padding: 0.2rem 0.3rem;
   background: var(--note-bg, var(--grey-2));
   border-color: var(--note-border, var(--grey-4));
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
 }
 
 .md .quiz-group {
@@ -261,7 +261,7 @@ span.label {
 .md .quiz-group .quiz-item > .quiz-question > p:first-child::before {
   content: "[" attr(data-type) "]";
   font-size: 0.75rem;
-  color: var(--grey-4);
+  color: var(--text-color-muted);
   margin: auto 0.3125rem;
 }
 
@@ -394,7 +394,7 @@ span.label {
 
 .md .quiz-group .quiz-mistake {
   display: block;
-  border: 0.1875rem dashed var(--grey-4);
+  border: 0.1875rem dashed var(--text-color-muted);
   padding: 0.625rem 1.25rem;
   background: var(--grey-3);
   margin: 0.3125rem 0;
@@ -404,7 +404,7 @@ span.label {
   display: block;
   content: "[" attr(data-type) "]";
   font-size: 0.8125rem;
-  color: var(--grey-4);
+  color: var(--text-color-muted);
 }
 
 .md .quiz-group .quiz-check-btn {
@@ -454,11 +454,11 @@ span.label {
 }
 
 .md .spoiler:not(.bulr):hover {
-  color: oklch(1 0 0);
+  color: var(--grey-0);
 }
 
 .md .bulr {
-  text-shadow: oklch(0 0 0 / 0.7) 0 0 0.625rem;
+  text-shadow: color-mix(in oklch, var(--grey-9) 70%, transparent) 0 0 0.625rem;
   color: transparent;
 }
 

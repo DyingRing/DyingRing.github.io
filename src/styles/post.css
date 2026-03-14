@@ -32,7 +32,7 @@
 
 .breadcrumb .ic {
   margin: 0 0.125rem;
-  color: var(--grey-4);
+  color: var(--text-color-muted);
 }
 
 .breadcrumb .ic:nth-child(1) {
@@ -287,10 +287,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, oklch(0.384 0.012 28.9), oklch(0 0 0));
+  background: var(--cover-overlay-gradient);
   opacity: 0.5;
   transition: all 0.3s ease;
-  z-index: -1;
+  z-index: var(--z-behind);
   top: 0;
   left: 0;
 }
@@ -382,7 +382,7 @@
 /* Anchor Links */
 .md .anchor {
   border-bottom-style: none;
-  color: var(--grey-4);
+  color: var(--text-color-muted);
   float: right;
   margin-left: 0.625rem;
 }
@@ -393,7 +393,7 @@
 
 .md .anchor::before,
 .md .anchor::after {
-  color: var(--grey-4);
+  color: var(--text-color-muted);
   position: absolute;
   font-weight: normal;
   transition: all 0.3s ease-out;
@@ -474,7 +474,7 @@
   display: block;
   text-align: center;
   font-size: 0.875rem;
-  color: var(--grey-4);
+  color: var(--text-color-muted);
 }
 
 .md .video-container {
@@ -742,7 +742,7 @@
   font-size: 80%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
   .article .md .anchor::before,
   .article .md .anchor::after {
     left: -0.625rem;
@@ -755,7 +755,7 @@
   line-height: 3;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 480px) {
   .article .md .anchor::after {
     left: -0.1875rem;
   }

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { getT } from "@/i18n";
 import themeConfig from "@/theme.config";
+import { sanitizeThemeColor, type ThemeColorValue } from "@/toolkit/themeColor";
 import "./footer.css";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
     since?: number;
     icon?: {
       name?: string;
-      color?: string;
+      color?: ThemeColorValue;
     };
     count?: boolean;
     powered?: boolean;
@@ -60,7 +61,11 @@ const currentYear = new Date().getFullYear();
 const since = config.since || currentYear;
 
 const iconName = config.icon?.name || "sakura rotate";
-const iconColor = config.icon?.color || "#ffc0cb";
+const iconColor = sanitizeThemeColor(
+  config.icon?.color,
+  "var(--color-pink)",
+  "footer.icon.color(runtime)",
+);
 ---
 
 <footer id="footer" class="text-grey-5 text-sm bg-body-bg-shadow mt-2 py-2">
@@ -172,7 +177,7 @@ const iconColor = config.icon?.color || "#ffc0cb";
     }
   }
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1440px) {
     .inner {
       max-width: 1340px;
     }

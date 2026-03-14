@@ -62,6 +62,7 @@ const footerConfig = themeConfig.footer || {};
 const widgetsConfig = themeConfig.widgets || {};
 const commentsConfig = themeConfig.comments || {};
 const walineConfig = commentsConfig.waline || {};
+const tagCloudConfig = themeConfig.tagCloud || {};
 const visibilityTitleConfig = themeConfig.visibilityTitle || {};
 const layoutConfig = themeConfig.layout || {};
 const rightSidebarConfig = layoutConfig.rightSidebar || {};
@@ -110,8 +111,8 @@ const rightSidebarTagCloud = shouldComputeRightSidebarTagCloud
         {
           minFontSize: 12,
           maxFontSize: 20,
-          startColor: "#8a8a8a",
-          endColor: "#0084ff",
+          startColor: tagCloudConfig.startColor,
+          endColor: tagCloudConfig.endColor,
           limit: 16,
         },
       ).map((tag) => ({

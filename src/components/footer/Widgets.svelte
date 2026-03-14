@@ -286,7 +286,7 @@
     max-height: 2rem;
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 768px) {
     :global(.widgets) {
       flex-direction: column-reverse;
       gap: 0;

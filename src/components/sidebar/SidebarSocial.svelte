@@ -1,24 +1,43 @@
-<script lang='ts'>
-  import type { SocialLink } from './SidebarTypes'
+<script lang="ts">
+  import type { SocialLink } from "./SidebarTypes";
+  import { sanitizeThemeColor } from "@/toolkit/themeColor";
 
   interface Props {
-    social?: Record<string, SocialLink>
+    social?: Record<string, SocialLink>;
   }
 
-  const { social = {} }: Props = $props()
+  const { social = {} }: Props = $props();
+
+  const entries = $derived(
+    Object.entries(social).map(([name, link]) => {
+      if (!link) {
+        return [name, link] as const;
+      }
+
+      const safeColor = link.color
+        ? sanitizeThemeColor(
+            link.color,
+            "var(--color-pink)",
+            `sidebar.social.${name}.color(runtime)`,
+          )
+        : undefined;
+
+      return [name, { ...link, color: safeColor }] as const;
+    }),
+  );
 </script>
 
 {#if social && Object.keys(social).length > 0}
-  <div class='social'>
-    {#each Object.entries(social) as [name, link]}
+  <div class="social">
+    {#each entries as [name, link] (name)}
       {#if link}
         <a
           href={link.url}
           title={link.url}
           class={`item ${name}`}
-          target='_blank'
-          rel='noopener noreferrer'
-          style={link.color ? `--social-color: ${link.color}` : ''}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={link.color ? `--social-color: ${link.color}` : ""}
         >
           <div class={`${link.icon} w-full h-full scale-80`}></div>
         </a>
@@ -44,7 +63,7 @@
     border-radius: 38%;
     text-decoration: none;
     flex-wrap: wrap;
-    align-items: center
+    align-items: center;
   }
 
   .social .item div {
@@ -57,7 +76,7 @@
   .social .item::before {
     top: 90%;
     left: -110%;
-    content: '';
+    content: "";
     width: 120%;
     height: 120%;
     position: absolute;
@@ -73,7 +92,7 @@
   }
 
   .social .item div {
-    color: var(--social-color, var(--color-grey-5));
+    color: var(--social-color, var(--grey-5));
   }
 
   .social .item:focus div,

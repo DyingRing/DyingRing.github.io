@@ -15,7 +15,7 @@ describe("generateTagCloud", () => {
     startColor: "#aaaaff",
     endColor: "#ff5555",
     limit: 100,
-  };
+  } satisfies Parameters<typeof generateTagCloud>[1];
 
   it("should generate font size within the correct range", () => {
     const cloud = generateTagCloud(tags, options);
@@ -60,5 +60,34 @@ describe("generateTagCloud", () => {
 
     expect(fontSizes.size).toBe(1);
     expect(colors.size).toBe(1);
+  });
+
+  it("should generate color-mix when start/end are design tokens", () => {
+    const cloud = generateTagCloud(tags, {
+      ...options,
+      startColor: "var(--grey-6)",
+      endColor: "var(--color-blue)",
+    });
+
+    expect(cloud.length).toBeGreaterThan(0);
+    cloud.forEach((tag) => {
+      expect(tag.color).toMatch(
+        /^color-mix\(in oklch, var\(--grey-6\) .+%, var\(--color-blue\) .+%\)$/,
+      );
+    });
+  });
+
+  it("should fallback to default tokens when color values are invalid", () => {
+    const cloud = generateTagCloud(tags, {
+      ...options,
+      startColor: "rgb(255, 0, 0); background: red" as never,
+      endColor: "{oops}" as never,
+    });
+
+    expect(cloud.length).toBeGreaterThan(0);
+    cloud.forEach((tag) => {
+      expect(tag.color).toContain("color-mix(in oklch, var(--grey-6)");
+      expect(tag.color).toContain("var(--color-blue)");
+    });
   });
 });

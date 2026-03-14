@@ -40,12 +40,14 @@ const friendsJson = JSON.stringify(friendsSnippet, null, 2);
     <section class="friend-section friend-snippet">
       <h3>友链配置示例</h3>
       <p>添加本站时，请将下面内容追加到自己的 links 配置中。</p>
-      <Code
-        code={friendsJson}
-        lang="json"
-        themes={codeThemes}
-        class="friend-code"
-      />
+      <code-block>
+        <Code
+          code={friendsJson}
+          lang="json"
+          themes={codeThemes}
+          class="friend-code"
+        />
+      </code-block>
     </section>
     <section class="friend-section friend-links-section">
       <h3>友链列表</h3>
@@ -145,7 +147,7 @@ const friendsJson = JSON.stringify(friendsSnippet, null, 2);
     white-space: pre;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
     .friend-page {
       padding: 1.25rem 1rem 2rem;
     }

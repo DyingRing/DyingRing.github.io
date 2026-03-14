@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { generateTagCloud } from "@/toolkit/posts/generateTagCloud";
 import { t } from "@/i18n";
+import themeConfig from "@/theme.config";
 import "../../styles/tags.css";
 
 // Get all published posts
@@ -34,8 +35,8 @@ const tags: TagCount[] = Array.from(tagMap.entries()).map(([name, count]) => ({
 const tagCloud = generateTagCloud(tags, {
   minFontSize: 12,
   maxFontSize: 30,
-  startColor: "#8a8a8a",
-  endColor: "#0084ff",
+  startColor: themeConfig.tagCloud?.startColor,
+  endColor: themeConfig.tagCloud?.endColor,
   limit: 200,
 });
 

@@ -680,11 +680,11 @@ const hasRenderedContent =
   }
 
   :global(:root[data-theme="dark"]) .extra-empty-card {
-    box-shadow: 0 1rem 2rem -1.5rem oklch(0 0 0 / 0.65);
+    box-shadow: var(--shadow-dark-elevated);
   }
 
   :global(:root[data-theme="dark"]) .extra-card {
-    box-shadow: 0 1rem 2rem -1.5rem oklch(0 0 0 / 0.65);
+    box-shadow: var(--shadow-dark-elevated);
   }
 
   :global(:root[data-theme="dark"]) .extra-card__icon,

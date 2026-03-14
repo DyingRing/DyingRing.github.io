@@ -109,12 +109,12 @@ const singleImage =
   }
 
   .imgs-container {
-    background-color: oklch(0.334 0.010 28.9);
+    background-color: var(--header-cover-bg);
     width: 100%;
     position: fixed;
     left: 0;
     top: 0;
-    z-index: -9;
+    z-index: var(--z-behind);
     height: 70vh;
     min-height: 25rem;
     content-visibility: auto;
@@ -134,13 +134,13 @@ const singleImage =
   }
 
   .imgs-overlay {
-    background-color: oklch(0 0 0 / 0.2);
+    background-color: var(--grey-9-a2);
     height: 100%;
     width: 100%;
     transition: opacity 0.3s;
     left: 0;
     top: 0;
     position: absolute;
-    z-index: 1;
+    z-index: var(--z-content);
   }
 </style>

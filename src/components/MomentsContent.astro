@@ -16,7 +16,7 @@ const { moments } = Astro.props;
       moments.length > 0 ? (
         moments.map((moment) => <MomentCard moment={moment} />)
       ) : (
-        <div class="no-moments">
+        <div class="no-moments text-grey-5 bg-grey-0">
           <p>{t("moments.noContent")}</p>
         </div>
       )
@@ -54,8 +54,6 @@ const { moments } = Astro.props;
   .no-moments {
     text-align: center;
     padding: 3rem 2rem;
-    color: var(--grey-5);
-    background: var(--grey-0);
     border-radius: 0.75rem;
     margin-left: -1.5rem;
   }
@@ -65,13 +63,13 @@ const { moments } = Astro.props;
     margin: 0;
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 768px) {
     .moments-wrapper {
       padding: 0.625rem;
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
     .moments-wrapper {
       padding: 0.5rem;
     }

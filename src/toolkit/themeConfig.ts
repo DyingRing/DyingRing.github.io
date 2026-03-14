@@ -1,6 +1,7 @@
 import type { NavItemType } from "@/components/navbar/NavTypes";
 import type { SidebarConfig } from "@/components/sidebar/SidebarTypes";
 import type { Locale } from "@/i18n";
+import { sanitizeThemeColor, type ThemeColorValue } from "./themeColor";
 
 interface BrandConfig {
   /**
@@ -97,9 +98,10 @@ interface FooterConfig {
 
     /**
      * 图标颜色。
-     * - 支持任意 CSS 颜色值（如 "#ffc0cb"、"pink"）
+     * - 推荐优先使用 design token 引用：`var(--color-*)`
+     * - 兼容十六进制与函数色值：`#fff`、`rgb(...)`、`hsl(...)`、`oklch(...)`
      */
-    color?: string;
+    color?: ThemeColorValue;
   };
 
   /**
@@ -360,7 +362,7 @@ export interface FriendLinkConfig {
   /** 头像地址 */
   avatar: string;
   /** 主题色（可选，支持 CSS 颜色值或变量） */
-  color?: string;
+  color?: ThemeColorValue;
   /** 站点预览图（可选） */
   siteImage?: string;
 }
@@ -373,11 +375,29 @@ interface FriendsConfig {
   /** 友链配置示例使用的头像（可选） */
   avatar?: string;
   /** 友链配置示例使用的主题色（可选） */
-  color?: string;
+  color?: ThemeColorValue;
   /** 友链配置示例使用的站点预览图（可选） */
   siteImage?: string;
   /** 友链列表 */
   links: FriendLinkConfig[];
+}
+
+interface TagCloudConfig {
+  /**
+   * 标签云颜色梯度起始色。
+   * - 用于按词频计算颜色渐变
+   * - 推荐优先使用 design token 引用：`var(--*)`
+   * - 兼容十六进制与函数色值
+   */
+  startColor?: ThemeColorValue;
+
+  /**
+   * 标签云颜色梯度结束色。
+   * - 用于按词频计算颜色渐变
+   * - 推荐优先使用 design token 引用：`var(--*)`
+   * - 兼容十六进制与函数色值
+   */
+  endColor?: ThemeColorValue;
 }
 
 interface VisibilityTitleConfig {
@@ -575,6 +595,12 @@ export interface ShokaXThemeConfig {
   friends?: FriendsConfig;
 
   /**
+   * 标签云配色配置。
+   * - 用于控制标签云字号梯度对应的颜色渐变
+   */
+  tagCloud?: TagCloudConfig;
+
+  /**
    * 页面可视度标题切换配置。
    * - 失焦：显示 leaveTitle
    * - 聚焦：显示 returnTitle，延迟 restoreDelay 后恢复原始标题
@@ -588,6 +614,69 @@ export interface ShokaXThemeConfig {
   hyc?: HycConfig;
 }
 
-export function defineConfig(config: ShokaXThemeConfig) {
+const DEFAULT_THEME_COLORS = {
+  footerIcon: "var(--color-pink)",
+  tagCloudStart: "var(--grey-6)",
+  tagCloudEnd: "var(--color-blue)",
+  social: "var(--color-pink)",
+  friend: "var(--color-blue)",
+} as const satisfies Record<string, ThemeColorValue>;
+
+function normalizeThemeConfigColors(config: ShokaXThemeConfig): ShokaXThemeConfig {
+  if (config.footer?.icon) {
+    config.footer.icon.color = sanitizeThemeColor(
+      config.footer.icon.color,
+      DEFAULT_THEME_COLORS.footerIcon,
+      "footer.icon.color",
+    );
+  }
+
+  if (config.tagCloud) {
+    config.tagCloud.startColor = sanitizeThemeColor(
+      config.tagCloud.startColor,
+      DEFAULT_THEME_COLORS.tagCloudStart,
+      "tagCloud.startColor",
+    );
+    config.tagCloud.endColor = sanitizeThemeColor(
+      config.tagCloud.endColor,
+      DEFAULT_THEME_COLORS.tagCloudEnd,
+      "tagCloud.endColor",
+    );
+  }
+
+  if (config.sidebar?.social) {
+    Object.entries(config.sidebar.social).forEach(([name, link]) => {
+      if (!link?.color) return;
+      link.color = sanitizeThemeColor(
+        link.color,
+        DEFAULT_THEME_COLORS.social,
+        `sidebar.social.${name}.color`,
+      );
+    });
+  }
+
+  if (config.friends?.color) {
+    config.friends.color = sanitizeThemeColor(
+      config.friends.color,
+      DEFAULT_THEME_COLORS.friend,
+      "friends.color",
+    );
+  }
+
+  if (config.friends?.links) {
+    config.friends.links.forEach((link, index) => {
+      if (!link.color) return;
+      link.color = sanitizeThemeColor(
+        link.color,
+        DEFAULT_THEME_COLORS.friend,
+        `friends.links[${index}].color`,
+      );
+    });
+  }
+
   return config;
+}
+
+export function defineConfig(config: ShokaXThemeConfig) {
+  return normalizeThemeConfigColors(config);
 }

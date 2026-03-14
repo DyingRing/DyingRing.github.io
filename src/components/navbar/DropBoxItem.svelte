@@ -14,7 +14,7 @@
 </script>
 
 <ul
-  class={`dropbox-menu box-shadow mt-2 p-0 rounded-br-2.5 rounded-tl-2.5 bg-[var(--grey-1)] w-max absolute first:rounded-tl-2.5 ${mergedClass}`.trim()}
+  class={`dropbox-menu box-shadow mt-2 p-0 rounded-br-2.5 rounded-tl-2.5 w-max absolute first:rounded-tl-2.5 ${mergedClass}`.trim()}
 >
   {#each navLinks as { href, text, icon } (href)}
     <div class="color-btn first:rounded-tl-2.5 last:rounded-br-2.5">
@@ -35,6 +35,7 @@
 
   .dropbox-menu {
     color: var(--text-color);
+    background-color: var(--grey-1);
   }
 
   :global(.dropbox-menu a) {
@@ -42,7 +43,7 @@
   }
 
   .color-btn:hover {
-    z-index: 0;
+    z-index: var(--z-base);
     color: var(--grey-0);
     background-image: linear-gradient(
       to right,

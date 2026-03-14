@@ -216,7 +216,7 @@
     position: fixed;
     right: 1rem;
     bottom: 1rem;
-    z-index: 40;
+    z-index: var(--z-floating);
     display: flex;
     flex-direction: column;
     gap: 0.4rem;

@@ -37,24 +37,24 @@ const images =
 const content = moment.body || "";
 ---
 
-<article class="moment-card">
+<article class="moment-card bg-grey-0">
   <div class="timeline-dot"></div>
 
   <div class="moment-header">
-    <span class="moment-date">
+    <span class="moment-date text-grey-5">
       <i class="i-ri-calendar-line"></i>
       {formatDate(moment.data.date)}
     </span>
   </div>
 
-  <div class="moment-content">
+  <div class="moment-content text-color">
     {content && <div class="moment-text" set:html={content} />}
 
     {
       images.length > 0 && (
         <div class="moment-images" data-count={images.length}>
           {images.map((src, index) => (
-            <div class="image-wrapper">
+            <div class="image-wrapper bg-grey-2">
               <img
                 src={src}
                 alt={`图片 ${index + 1}`}
@@ -75,9 +75,8 @@ const content = moment.body || "";
     position: relative;
     padding: 1.5rem;
     padding-left: 2rem;
-    background: var(--grey-0);
     border-radius: 0.75rem;
-    box-shadow: 0 2px 8px oklch(0 0 0 / 0.08);
+    box-shadow: var(--shadow-card-soft);
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
     animation: slideUpIn 0.4s ease-out forwards;
@@ -86,7 +85,7 @@ const content = moment.body || "";
 
   .moment-card:hover {
     transform: translateX(0.5rem);
-    box-shadow: 0 4px 16px oklch(0 0 0 / 0.12);
+    box-shadow: var(--shadow-card-soft-hover);
   }
 
   @keyframes slideUpIn {
@@ -109,7 +108,7 @@ const content = moment.body || "";
     border-radius: 50%;
     background: linear-gradient(135deg, var(--color-pink), var(--color-orange));
     box-shadow: 0 0 0 0.25rem var(--grey-0);
-    z-index: 2;
+    z-index: var(--z-elevated);
   }
 
   .moment-header {
@@ -121,15 +120,10 @@ const content = moment.body || "";
     align-items: center;
     gap: 0.25rem;
     font-size: 0.875rem;
-    color: var(--grey-5);
   }
 
   .moment-date i {
     font-size: 0.75rem;
-  }
-
-  .moment-content {
-    color: var(--text-color);
   }
 
   .moment-text {
@@ -195,7 +189,6 @@ const content = moment.body || "";
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 0.5rem;
-    background: var(--grey-2);
   }
 
   .moment-image {
@@ -209,7 +202,7 @@ const content = moment.body || "";
     transform: scale(1.05);
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
     .moment-card {
       padding: 1rem;
       padding-left: 1.5rem;

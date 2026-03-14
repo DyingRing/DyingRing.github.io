@@ -219,7 +219,7 @@
     margin: 1.5rem 0;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0.5rem 0.5rem 1rem var(--grey-3);
+    box-shadow: var(--codeblock-shadow);
     font-family: "Maple Mono", "Courier New", monospace;
   }
 
@@ -233,7 +233,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
-    background-color: var(--grey-2);
+    background-color: var(--surface-code-header);
     min-height: 1.5rem;
     border-top-right-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
@@ -252,19 +252,19 @@
     border-radius: 50%;
   }
   .red {
-    background: oklch(0.62 0.2 16.9);
+    background: var(--codeblock-dot-red);
   }
   .yellow {
-    background: oklch(0.74 0.14 73);
+    background: var(--codeblock-dot-yellow);
   }
   .green {
-    background: oklch(0.66 0.11 138);
+    background: var(--codeblock-dot-green);
   }
 
   .lang-text {
     margin-left: 0.75rem;
     font-size: 1rem;
-    color: var(--grey-4);
+    color: var(--text-color-muted);
     text-transform: uppercase;
   }
 
@@ -273,13 +273,13 @@
     flex-direction: row;
     gap: 0.75rem;
     padding-right: 1.5rem;
-    color: var(--grey-5);
+    color: var(--text-color-muted);
   }
 
   .action-btn {
     border: none;
     cursor: pointer;
-    background-color: var(--grey-5);
+    background-color: var(--codeblock-action-color);
     width: 1.1rem;
     height: 1.1rem;
     mask-size: contain;
@@ -292,7 +292,7 @@
   }
 
   .action-btn:hover {
-    background-color: var(--grey-4);
+    background-color: var(--codeblock-action-hover-color);
   }
 
   /* 内容容器 - 支持折叠 */
@@ -313,7 +313,11 @@
     left: 0;
     right: 0;
     height: 100px;
-    background: linear-gradient(to bottom, transparent, var(--grey-3));
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--codeblock-collapse-gradient-end)
+    );
     pointer-events: none;
   }
 
@@ -322,8 +326,8 @@
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--grey-5);
-    border: 1px solid var(--grey-4);
+    background-color: var(--codeblock-action-color);
+    border: 1px solid var(--border-color-muted);
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
@@ -335,16 +339,16 @@
     -webkit-mask-position: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px oklch(0 0 0 / 0.15);
-    z-index: 10;
+    box-shadow: var(--codeblock-button-shadow);
+    z-index: var(--z-dropdown);
     animation: float 2s ease-in-out infinite;
     scale: 1.5;
   }
 
   .collapse-btn:hover {
-    background-color: var(--grey-6);
+    background-color: var(--codeblock-action-hover-color);
     transform: translateX(-50%) scale(1.1);
-    box-shadow: 0 4px 12px oklch(0 0 0 / 0.2);
+    box-shadow: var(--codeblock-button-shadow-hover);
   }
 
   /* 飘动动画 */
@@ -376,7 +380,7 @@
     margin: 0;
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
-    background-color: var(--grey-3) !important;
+    background-color: var(--surface-code) !important;
     overflow-x: auto;
   }
 
@@ -416,7 +420,7 @@
     margin-right: 1.5rem;
     display: inline-block;
     text-align: right;
-    color: var(--grey-5);
+    color: var(--text-color-muted);
   }
 
   /* 行高亮（highlight + meta highlight 复用同一个 class） */
@@ -479,43 +483,6 @@
     box-shadow: none;
   }
 
-  /* 主题相关的悬停颜色 - 与 Shiki 主题颜色协调 */
-  :global(html:not([data-theme="dark"]) code-block) {
-    --line-hover-bg: oklch(0 0 0 / 0.06);
-    --cb-line-highlight-bg: oklch(0.93 0.131 60 / 0.14);
-    --cb-line-highlight-border: oklch(0.845 0.148 46.9 / 0.9);
-    --cb-diff-add-bg: oklch(0.676 0.077 120.2 / 0.14);
-    --cb-diff-add-border: oklch(0.676 0.077 120.2 / 0.75);
-    --cb-diff-remove-bg: oklch(0.643 0.213 18.1 / 0.14);
-    --cb-diff-remove-border: oklch(0.643 0.213 18.1 / 0.75);
-    --cb-focus-dim-opacity: 0.55;
-    --cb-focus-bg: oklch(0.661 0.162 216 / 0.08);
-    --cb-focus-border: oklch(0.661 0.162 216 / 0.65);
-    --cb-error-bg: oklch(0.643 0.213 18.1 / 0.14);
-    --cb-warning-bg: oklch(0.77 0.17 35 / 0.14);
-    --cb-error-border: oklch(0.643 0.213 18.1 / 0.85);
-    --cb-warning-border: oklch(0.77 0.17 35 / 0.85);
-    --cb-highlighted-word-bg: oklch(0.93 0.131 60 / 0.25);
-  }
-
-  :global(html[data-theme="dark"] code-block) {
-    --line-hover-bg: oklch(1 0 0 / 0.1);
-    --cb-line-highlight-bg: oklch(1 0 0 / 0.06);
-    --cb-line-highlight-border: oklch(0.845 0.148 46.9 / 0.35);
-    --cb-diff-add-bg: oklch(0.676 0.077 120.2 / 0.16);
-    --cb-diff-add-border: oklch(0.676 0.077 120.2 / 0.55);
-    --cb-diff-remove-bg: oklch(0.643 0.213 18.1 / 0.16);
-    --cb-diff-remove-border: oklch(0.643 0.213 18.1 / 0.55);
-    --cb-focus-dim-opacity: 0.5;
-    --cb-focus-bg: oklch(0.661 0.162 216 / 0.12);
-    --cb-focus-border: oklch(0.661 0.162 216 / 0.55);
-    --cb-error-bg: oklch(0.643 0.213 18.1 / 0.18);
-    --cb-warning-bg: oklch(0.77 0.17 35 / 0.18);
-    --cb-error-border: oklch(0.643 0.213 18.1 / 0.7);
-    --cb-warning-border: oklch(0.77 0.17 35 / 0.7);
-    --cb-highlighted-word-bg: oklch(0.93 0.131 60 / 0.18);
-  }
-
   /* 全屏样式 */
   .fullscreen {
     position: fixed;
@@ -526,12 +493,12 @@
     width: 100vw;
     height: 100vh;
     margin: 0;
-    z-index: 9999;
+    z-index: var(--z-fullscreen);
     border-radius: 0;
     animation: fullscreenIn 0.3s ease-out;
     display: flex;
     flex-direction: column;
-    background-color: oklch(0 0 0 / 0.85);
+    background-color: var(--codeblock-overlay-bg);
     backdrop-filter: blur(8px);
     padding: 2rem;
     box-sizing: border-box;

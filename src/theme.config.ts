@@ -87,7 +87,7 @@ export default defineConfig({
     since: 2025,
     icon: {
       name: "sakura rotate",
-      color: "#ffc0cb",
+      color: "var(--color-pink)",
     },
     count: true,
     powered: true,
@@ -99,6 +99,10 @@ export default defineConfig({
       // beian: '网安备案号',
       // recordcode: 'xxxxx',
     },
+  },
+  tagCloud: {
+    startColor: "var(--grey-6)",
+    endColor: "var(--color-blue)",
   },
   widgets: {
     randomPosts: true,

@@ -26,8 +26,11 @@ const visiblePosts = posts
 
 {
   visiblePosts.length > 0 && (
-    <section class="ai-similar-posts" aria-label="AI 相近文章推荐">
-      <div class="ai-similar-posts__title">
+    <section
+      class="ai-similar-posts bg-grey-2 border border-grey-3"
+      aria-label="AI 相近文章推荐"
+    >
+      <div class="ai-similar-posts__title text-primary">
         <i class="icon i-ri-robot-2-line" />
         <span>{title}</span>
       </div>
@@ -35,9 +38,9 @@ const visiblePosts = posts
       <ul class="ai-similar-posts__list">
         {visiblePosts.map((item) => (
           <li class="ai-similar-posts__item">
-            <a href={`/posts/${item.slug}/`}>
+            <a href={`/posts/${item.slug}/`} class="text-color">
               <span class="ai-similar-posts__name">{item.title}</span>
-              <span class="ai-similar-posts__score">
+              <span class="ai-similar-posts__score text-grey-5">
                 相似度 {Math.round(item.score * 100)}%
               </span>
             </a>
@@ -54,15 +57,12 @@ const visiblePosts = posts
     margin-bottom: 1rem;
     padding: 0.875rem 1rem;
     border-radius: 0.625rem;
-    background: var(--grey-2);
-    border: 1px solid var(--grey-3);
   }
 
   .ai-similar-posts__title {
     display: flex;
     align-items: center;
     gap: 0.375rem;
-    color: var(--primary-color);
     font-weight: 600;
     margin-bottom: 0.625rem;
   }
@@ -85,7 +85,6 @@ const visiblePosts = posts
     text-decoration: none;
     border-radius: 0.375rem;
     padding: 0.375rem 0.5rem;
-    color: var(--text-color);
     transition: background-color 0.25s ease;
   }
 
@@ -102,7 +101,6 @@ const visiblePosts = posts
 
   .ai-similar-posts__score {
     font-size: 0.75rem;
-    color: var(--grey-5);
     white-space: nowrap;
   }
 </style>

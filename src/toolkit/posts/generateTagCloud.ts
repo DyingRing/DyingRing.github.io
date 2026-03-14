@@ -1,4 +1,5 @@
 import { TinyColor } from "@ctrl/tinycolor";
+import { isThemeTokenRef, sanitizeThemeColor, type ThemeColorValue } from "@/toolkit/themeColor";
 
 interface Tag {
   name: string;
@@ -8,10 +9,13 @@ interface Tag {
 interface TagCloudOptions {
   minFontSize: number; // 最小字体大小（例如 12）
   maxFontSize: number; // 最大字体大小（例如 32）
-  startColor: string; // 起始颜色，例如 '#888888'
-  endColor: string; // 终止颜色，例如 '#ff0000'
+  startColor?: ThemeColorValue; // 起始颜色，例如 '#888888' / 'var(--grey-6)'
+  endColor?: ThemeColorValue; // 终止颜色，例如 '#ff0000' / 'var(--color-blue)'
   limit?: number; // 最大处理数量
 }
+
+const DEFAULT_TAG_CLOUD_START_COLOR = "var(--grey-6)";
+const DEFAULT_TAG_CLOUD_END_COLOR = "var(--color-blue)";
 
 interface TagCloudItem {
   name: string;
@@ -34,6 +38,17 @@ interface TagCloudItem {
 export function generateTagCloud(tags: Tag[], options: TagCloudOptions): TagCloudItem[] {
   const { minFontSize, maxFontSize, startColor, endColor, limit } = options;
 
+  const effectiveStartColor = sanitizeThemeColor(
+    startColor,
+    DEFAULT_TAG_CLOUD_START_COLOR,
+    "tagCloud.startColor(generate)",
+  );
+  const effectiveEndColor = sanitizeThemeColor(
+    endColor,
+    DEFAULT_TAG_CLOUD_END_COLOR,
+    "tagCloud.endColor(generate)",
+  );
+
   const sorted = [...tags].sort((a, b) => b.count - a.count);
   const limited = typeof limit === "number" ? sorted.slice(0, limit) : sorted;
 
@@ -41,12 +56,21 @@ export function generateTagCloud(tags: Tag[], options: TagCloudOptions): TagClou
   const minCount = limited[limited.length - 1]?.count || 1;
   const range = maxCount - minCount || 1;
 
-  const start = new TinyColor(startColor);
+  const start = new TinyColor(effectiveStartColor);
+  const end = new TinyColor(effectiveEndColor);
+  const shouldUseCssMix =
+    isThemeTokenRef(effectiveStartColor) ||
+    isThemeTokenRef(effectiveEndColor) ||
+    !start.isValid ||
+    !end.isValid;
 
   return limited.map((tag) => {
     const weight = (tag.count - minCount) / range;
     const fontSize = Math.round(minFontSize + (maxFontSize - minFontSize) * weight);
-    const color = start.mix(endColor, weight * 100).toHexString();
+    const mixPercent = weight * 100;
+    const color = shouldUseCssMix
+      ? `color-mix(in oklch, ${effectiveStartColor} ${100 - mixPercent}%, ${effectiveEndColor} ${mixPercent}%)`
+      : start.mix(effectiveEndColor, mixPercent).toHexString();
 
     return {
       name: tag.name,

@@ -1,4 +1,5 @@
 import type { NavItemType } from "../navbar/NavTypes";
+import type { ThemeColorValue } from "@/toolkit/themeColor";
 
 export interface SidebarConfig {
   /**
@@ -49,10 +50,10 @@ export interface SocialLink {
 
   /**
    * 图标颜色（可选）。
-   * - 支持任意 CSS 颜色值（如 "#1da1f2"、"blue"）
-   * - 不填则使用主题默认颜色
+   * - 推荐优先使用 design token 引用：`var(--color-*)`
+   * - 兼容十六进制与函数色值；不填时使用主题默认颜色
    */
-  color?: string;
+  color?: ThemeColorValue;
 }
 
 // TOC (Table of Contents) types

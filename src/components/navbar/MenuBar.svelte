@@ -41,7 +41,7 @@
     display: none;
   }
 
-  @media (min-width: 821px) {
+  @media (min-width: 1024px) {
     :global(.menu-title) {
       display: inline-block;
     }

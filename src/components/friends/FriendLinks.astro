@@ -118,7 +118,7 @@ const { links } = Astro.props;
 
   .friend-body {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-content);
     display: flex;
     gap: 1rem;
     align-items: center;
@@ -126,7 +126,7 @@ const { links } = Astro.props;
 
   .friend-avatar {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-content);
     flex: 0 0 auto;
   }
 
@@ -144,7 +144,7 @@ const { links } = Astro.props;
 
   .friend-content {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-content);
     flex: 1;
   }
 
@@ -228,8 +228,8 @@ const { links } = Astro.props;
     color: var(--grey-0);
     background: linear-gradient(
       120deg,
-      oklch(0 0 0 / 0.2),
-      oklch(0 0 0 / 0.55)
+      var(--grey-9-a2),
+      color-mix(in oklch, var(--grey-9) 55%, transparent)
     );
     opacity: 0;
     will-change: opacity;
@@ -250,7 +250,7 @@ const { links } = Astro.props;
     pointer-events: auto;
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 768px) {
     .friend-card {
       padding: 1rem;
     }

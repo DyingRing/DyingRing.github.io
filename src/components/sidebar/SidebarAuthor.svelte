@@ -14,7 +14,7 @@
   <div class="author" itemscope itemtype="http://schema.org/Person">
     {#if avatarImage}
       <div
-        class="image border border-[var(--body-bg-shadow)] block mx-auto max-w-40 p-0.5 shadow-[0_0_1rem_0.625rem_var(--body-bg-shadow)] rounded-full transition-transform duration-300 overflow-hidden"
+        class="image border border-body-bg-shadow block mx-auto max-w-40 p-0.5 shadow-[0_0_1rem_0.625rem_var(--body-bg-shadow)] rounded-full transition-transform duration-300 overflow-hidden"
         itemprop="image"
       >
         {@render avatarImage()}
@@ -22,7 +22,7 @@
     {/if}
     {#if author}
       <p
-        class="text-[var(--grey-7)] font-normal m-0 mt-[5px] text-center"
+        class="text-grey-7 font-normal m-0 mt-[5px] text-center"
         itemprop="name"
       >
         {author}
@@ -30,7 +30,7 @@
     {/if}
     {#if description}
       <div
-        class="text-[var(--grey-5)] text-sm mt-[5px] text-center"
+        class="text-grey-5 text-sm mt-[5px] text-center"
         itemprop="description"
       >
         {description}

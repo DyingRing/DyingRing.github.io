@@ -135,11 +135,11 @@
     color: var(--header-text-color);
     background-image: linear-gradient(
       180deg,
-      oklch(0 0 0 / 0.45) 0%,
-      oklch(0 0 0 / 0.2) 45%,
-      oklch(0 0 0 / 0) 100%
+      color-mix(in oklch, var(--grey-9) 45%, transparent) 0%,
+      var(--grey-9-a2) 45%,
+      var(--grey-1-a0) 100%
     );
-    text-shadow: 0 0.125rem 0.25rem oklch(0 0 0 / 0.5);
+    text-shadow: 0 0.125rem 0.25rem var(--grey-9-a5);
   }
 
   .nav-action {

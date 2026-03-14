@@ -102,7 +102,7 @@ textarea {
 main {
   background: linear-gradient(to top, var(--body-bg-shadow) 0, var(--grey-1) 20%) no-repeat bottom;
   position: relative;
-  z-index: 1;
+  z-index: var(--z-content);
 }
 
 #main {
@@ -132,7 +132,7 @@ main {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
   #main .wrap {
     padding: 0.5rem;
   }

@@ -278,8 +278,8 @@
       position: fixed;
       right: 0;
       background: var(--grey-1);
-      box-shadow: 0 0.375rem 0.9375rem 0.3125rem oklch(0 0 0 / 0.2);
-      z-index: 100;
+      box-shadow: var(--shadow-sidebar-mobile);
+      z-index: var(--z-sidebar);
       width: 280px;
       height: 100%;
     }
@@ -312,7 +312,7 @@
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
-    z-index: 1;
+    z-index: var(--z-content);
   }
 
   /* Panels */
@@ -358,7 +358,7 @@
       opacity: 0;
       top: 0;
       width: 100%;
-      z-index: 99;
+      z-index: var(--z-sidebar-overlay);
       transition: opacity 1s;
     }
 

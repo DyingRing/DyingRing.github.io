@@ -169,7 +169,7 @@ const monthLabel = new Intl.DateTimeFormat(locale, {
   }
 
   :global(:root[data-theme="dark"]) .calendar-card {
-    box-shadow: 0 1rem 2rem -1.5rem oklch(0 0 0 / 0.65);
+    box-shadow: var(--shadow-dark-elevated);
   }
 
   :global(:root[data-theme="dark"]) .date.today,

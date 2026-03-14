@@ -295,7 +295,7 @@
   .search-shell {
     position: fixed;
     inset: 0;
-    z-index: 999;
+    z-index: var(--z-search-overlay);
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -322,14 +322,14 @@
     cursor: pointer;
     background:
       radial-gradient(circle at top, var(--grey-1-a3), transparent 55%),
-      oklch(0.183 0.008 243.1 / 0.34);
+      var(--search-overlay-bg);
     backdrop-filter: blur(14px) saturate(140%);
     transition: opacity 0.3s ease;
   }
 
   .pagefind-panel {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-content);
     display: flex;
     min-height: min(32rem, calc(100vh - 6rem));
     max-height: calc(100vh - 6rem);
@@ -343,9 +343,7 @@
       color-mix(in srgb, var(--grey-1) 94%, var(--color-cyan-light) 6%),
       color-mix(in srgb, var(--grey-2) 92%, var(--color-pink-light) 8%)
     );
-    box-shadow:
-      0 1.5rem 3rem oklch(0.183 0.008 243.1 / 0.16),
-      inset 0 1px 0 oklch(1 0 0 / 0.22);
+    box-shadow: var(--search-panel-shadow), var(--search-panel-inset);
     backdrop-filter: blur(20px) saturate(180%);
     transform: translateY(-1.5rem) scale(0.98);
     transition:
@@ -356,8 +354,7 @@
   .search-shell-visible .pagefind-panel {
     transform: translateY(0) scale(1);
     box-shadow:
-      0 2rem 4rem oklch(0.183 0.008 243.1 / 0.2),
-      inset 0 1px 0 oklch(1 0 0 / 0.26);
+      var(--search-panel-shadow-active), var(--search-panel-inset-active);
   }
 
   .search-panel__ornament {
@@ -389,7 +386,7 @@
     position: absolute;
     right: 1rem;
     top: 1rem;
-    z-index: 2;
+    z-index: var(--z-elevated);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -414,7 +411,7 @@
     border-color: color-mix(in srgb, var(--color-red) 30%, var(--grey-4));
     background: color-mix(in srgb, var(--color-red-a1) 55%, var(--grey-1));
     color: var(--color-red);
-    box-shadow: 0 0.75rem 1.5rem oklch(0.593 0.209 13.9 / 0.12);
+    box-shadow: var(--search-accent-shadow);
     outline: none;
   }
 
@@ -484,9 +481,7 @@
       color-mix(in srgb, var(--grey-0) 88%, transparent),
       color-mix(in srgb, var(--grey-2) 94%, transparent)
     );
-    box-shadow:
-      inset 0 1px 0 oklch(1 0 0 / 0.3),
-      0 0.75rem 1.5rem oklch(0.183 0.008 243.1 / 0.06);
+    box-shadow: var(--search-input-inset), var(--search-input-shadow);
     color: var(--text-color);
     padding-inline: 1rem 3rem;
     transition:
@@ -499,7 +494,7 @@
     border-color: color-mix(in srgb, var(--color-red) 38%, var(--grey-4));
     box-shadow:
       0 0 0 0.25rem color-mix(in srgb, var(--color-red-a1) 78%, transparent),
-      0 1rem 2rem oklch(0.593 0.209 13.9 / 0.08);
+      var(--search-accent-shadow-soft);
     outline: none;
     transform: translateY(-1px);
   }
@@ -551,7 +546,7 @@
       color-mix(in srgb, var(--grey-0) 88%, transparent),
       color-mix(in srgb, var(--grey-2) 94%, transparent)
     );
-    box-shadow: 0 0.75rem 1.5rem oklch(0.183 0.008 243.1 / 0.05);
+    box-shadow: var(--search-result-shadow);
     padding: 1rem 1.1rem;
     transition:
       transform 0.25s ease,
@@ -577,7 +572,7 @@
   .pagefind-panel :global(.pagefind-ui__result:hover) {
     transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--color-red) 24%, var(--grey-4));
-    box-shadow: 0 1rem 2rem oklch(0.183 0.008 243.1 / 0.09);
+    box-shadow: var(--search-result-shadow-hover);
   }
 
   .pagefind-panel :global(.pagefind-ui__result-link) {
@@ -649,7 +644,7 @@
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     .search-shell {
       padding: 3.5rem 0.75rem 0.75rem;
     }
