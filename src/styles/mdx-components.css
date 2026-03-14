@@ -4,7 +4,7 @@
   padding: 1rem;
   position: relative;
   background: var(--note-bg, var(--grey-2));
-  color: var(--grey-6);
+  color: var(--text-color);
   border-left: 0.25rem solid var(--note-border, var(--grey-4));
   font-size: 0.875rem;
   padding-left: 2.5rem;
@@ -15,7 +15,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem 1rem 1rem;
-  color: var(--grey-6);
+  color: var(--text-color);
 }
 
 .md .note.note-card::before {
@@ -26,7 +26,7 @@
   flex: 0 0 auto;
   font-size: 2rem;
   line-height: 1;
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
 }
 
 .md .note.note-card .note-body {
@@ -36,7 +36,7 @@
 
 .md .note.note-card .note-title {
   font-weight: 700;
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
   margin-bottom: 0.25rem;
 }
 
@@ -106,7 +106,7 @@
 
 .md .mdx-collapse__summary::before {
   content: "▸";
-  color: var(--grey-4);
+  color: var(--grey-5);
   margin-right: 0.5rem;
 }
 
@@ -141,7 +141,7 @@
 .md .mdx-collapse[open] {
   background: var(--note-bg, none);
   border-radius: 0.25rem;
-  color: var(--grey-6);
+  color: var(--text-color);
 }
 
 .md .mdx-collapse[open] .mdx-collapse__summary {
@@ -213,7 +213,7 @@ span.label {
   padding: 0.2rem 0.3rem;
   background: var(--note-bg, var(--grey-2));
   border-color: var(--note-border, var(--grey-4));
-  color: var(--note-text, var(--grey-6));
+  color: var(--note-text, var(--text-color));
 }
 
 .md .quiz-group {
@@ -261,7 +261,7 @@ span.label {
 .md .quiz-group .quiz-item > .quiz-question > p:first-child::before {
   content: "[" attr(data-type) "]";
   font-size: 0.75rem;
-  color: var(--grey-4);
+  color: var(--grey-5);
   margin: auto 0.3125rem;
 }
 
@@ -394,7 +394,7 @@ span.label {
 
 .md .quiz-group .quiz-mistake {
   display: block;
-  border: 0.1875rem dashed var(--grey-4);
+  border: 0.1875rem dashed var(--grey-5);
   padding: 0.625rem 1.25rem;
   background: var(--grey-3);
   margin: 0.3125rem 0;
@@ -404,7 +404,7 @@ span.label {
   display: block;
   content: "[" attr(data-type) "]";
   font-size: 0.8125rem;
-  color: var(--grey-4);
+  color: var(--grey-5);
 }
 
 .md .quiz-group .quiz-check-btn {

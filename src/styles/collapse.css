@@ -5,7 +5,7 @@
 }
 
 .timeline small {
-  color: var(--grey-4);
+  color: var(--grey-5);
   margin: auto 0.3125rem;
 }
 
@@ -63,7 +63,7 @@
 .timeline .item.title a,
 .timeline .item.header a,
 .timeline .item.section a {
-  border-bottom: 0.0625rem dashed var(--grey-4);
+  border-bottom: 0.0625rem dashed var(--grey-5);
   color: var(--primary-color);
   text-decoration: none;
   transition: all 0.3s ease;
@@ -103,7 +103,7 @@
 }
 
 .timeline .item.normal .meta time {
-  color: var(--grey-4);
+  color: var(--grey-5);
 }
 
 .timeline .item.normal .title {

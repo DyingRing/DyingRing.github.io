@@ -32,7 +32,7 @@
 
 .breadcrumb .ic {
   margin: 0 0.125rem;
-  color: var(--grey-4);
+  color: var(--grey-5);
 }
 
 .breadcrumb .ic:nth-child(1) {
@@ -382,7 +382,7 @@
 /* Anchor Links */
 .md .anchor {
   border-bottom-style: none;
-  color: var(--grey-4);
+  color: var(--grey-5);
   float: right;
   margin-left: 0.625rem;
 }
@@ -393,7 +393,7 @@
 
 .md .anchor::before,
 .md .anchor::after {
-  color: var(--grey-4);
+  color: var(--grey-5);
   position: absolute;
   font-weight: normal;
   transition: all 0.3s ease-out;
@@ -474,7 +474,7 @@
   display: block;
   text-align: center;
   font-size: 0.875rem;
-  color: var(--grey-4);
+  color: var(--grey-5);
 }
 
 .md .video-container {
