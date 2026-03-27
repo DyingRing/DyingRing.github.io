@@ -162,10 +162,6 @@ const {
 } = Astro.props as Props;
 
 const { Content } = await render(post);
-const contentContainer = await createPostContentContainer();
-const renderedPostHtml = wrapRenderedCodeBlocks(
-  await contentContainer.renderToString(Content),
-);
 
 // Build TOC from headings (加密文章的 TOC 在前端解密后更新)
 const toc: TocItem[] = isEncrypted
@@ -392,7 +388,7 @@ const postMeta = {
                 title={post.data.title}
               />
             ) : (
-              <Fragment set:html={renderedPostHtml} />
+              <Content />
             )
           }
 

@@ -260,7 +260,22 @@ const initAllTabs = () => {
   });
 };
 
+const wrapCodeBlocks = () => {
+  const codeBlocks = document.querySelectorAll<HTMLPreElement>(".md pre.astro-code");
+
+  codeBlocks.forEach((preElement) => {
+    if (preElement.closest("code-block")) {
+      return;
+    }
+
+    const codeBlockElement = document.createElement("code-block");
+    preElement.replaceWith(codeBlockElement);
+    codeBlockElement.append(preElement);
+  });
+};
+
 const initMdxComponents = () => {
+  wrapCodeBlocks();
   initQuiz();
   initAllTabs();
 };

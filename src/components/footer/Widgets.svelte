@@ -10,7 +10,6 @@
       title: string;
       description?: string;
     };
-    body?: string;
   }
 
   interface Props {
@@ -182,7 +181,7 @@
                 >{post.data.title}</span
               >
               <span class="text-grey-5 text-xs mt-1 max-h-8"
-                >{truncateText(post.data.description || post.body || "")}</span
+                >{truncateText(post.data.description || "")}</span
               >
             </a>
           </li>

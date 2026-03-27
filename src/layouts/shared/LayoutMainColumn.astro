@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { WidgetPost } from "@/toolkit/posts/createWidgetPosts";
 import Widgets from "@/components/footer/Widgets.svelte";
 
 interface WidgetsConfig {
@@ -9,7 +9,7 @@ interface WidgetsConfig {
 }
 
 interface Props {
-  posts: CollectionEntry<"posts">[];
+  posts: WidgetPost[];
   widgetsConfig?: WidgetsConfig;
   commentsEnabled?: boolean;
   walineServerURL?: string;
