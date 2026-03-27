@@ -50,7 +50,7 @@ const totalTags = tags.length;
 
 // Helper to get tag URL
 function getTagUrl(tagName: string): string {
-  return `/tags/${encodeURIComponent(tagName.toLowerCase().replace(/\s+/g, "-"))}`;
+  return `/tags/${encodeURIComponent(tagName.toLowerCase().replace(/\s+/g, "-"))}/`;
 }
 ---
 

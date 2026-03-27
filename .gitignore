@@ -33,3 +33,6 @@ hyacine.code-workspace
 generated/
 .hyacine
 .claude
+
+test-results/
+playwright-report/

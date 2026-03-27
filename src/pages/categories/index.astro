@@ -64,7 +64,7 @@ const hierarchicalCategories = formatCategories(categoriesArray, { depth: 3 });
 
 // Helper to render category item based on level
 function getCategoryUrl(name: string): string {
-  return `/categories/${encodeURIComponent(name)}`;
+  return `/categories/${encodeURIComponent(name)}/`;
 }
 
 type CategoryWithChildren = Category & { children?: CategoryWithChildren[] };

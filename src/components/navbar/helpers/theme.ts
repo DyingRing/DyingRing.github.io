@@ -84,6 +84,11 @@ export function toggleThemeWithTransition(
     })
     .catch((err) => {
       console.warn("[ShokaX] Theme transition failed", err);
+      try {
+        win.localStorage.setItem(STORAGE_KEY, next);
+      } catch (storageErr) {
+        console.warn("[ShokaX] Unable to persist theme", storageErr);
+      }
     });
 
   return next;
