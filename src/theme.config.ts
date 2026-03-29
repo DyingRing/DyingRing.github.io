@@ -11,6 +11,11 @@ export default defineConfig({
       icon: "i-ri-home-line",
     },
     {
+      text: "关于",
+      href: "/about/",
+      icon: "i-ri-user-3-line",
+    },
+    {
       text: "文章",
       href: "/random/",
       icon: "i-ri-quill-pen-fill",
