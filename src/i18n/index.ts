@@ -30,7 +30,6 @@ export async function initI18n(locale: Locale = "zh-CN") {
       interpolation: {
         escapeValue: false, // React/Astro already handles escaping
       },
-      showSupportNotice: false,
     });
   } else if (i18next.language !== locale) {
     await i18next.changeLanguage(locale);
@@ -51,7 +50,6 @@ export function getT(locale: Locale = "zh-CN") {
       interpolation: {
         escapeValue: false,
       },
-      initImmediate: false,
     });
   }
   return i18next.t.bind(i18next);
