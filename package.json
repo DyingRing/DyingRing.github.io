@@ -1,6 +1,6 @@
 {
-  "name": "astro-theme-shokax",
-  "version": "0.0.1",
+  "name": "astro-blog-shokax",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "bunx --bun astro dev",
