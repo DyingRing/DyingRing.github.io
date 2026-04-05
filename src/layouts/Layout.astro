@@ -28,6 +28,7 @@ import { generateTagCloud } from "@/toolkit/posts/generateTagCloud";
 import { createWidgetPosts } from "@/toolkit/posts/createWidgetPosts";
 import { toTagHref } from "@/toolkit/posts/url";
 import Footer from "@/components/footer/Footer.astro";
+import type { ImageMetadata } from "astro";
 
 // Accept sidebar props from child pages
 interface PostMeta {
@@ -44,6 +45,7 @@ interface Props {
   pageTitle?: string;
   postMeta?: PostMeta;
   indexPage?: boolean;
+  pageCover?: ImageMetadata | string;
 }
 
 const {
@@ -54,6 +56,7 @@ const {
   pageTitle = "",
   postMeta,
   indexPage = false,
+  pageCover,
 } = Astro.props;
 
 const navLinks = themeConfig.nav;
@@ -84,6 +87,7 @@ const ActiveLayout = enableThirdColumn ? ThreeColumnLayout : TwoColumnLayout;
 const fixedCover = coverConfig.fixedCover?.enable
   ? resolveFixedCover(coverConfig.fixedCover.url)
   : undefined;
+const resolvedHeaderCover = pageCover ?? fixedCover;
 
 // Get all posts for widgets
 const allPosts = await getCollection("posts");
@@ -176,7 +180,7 @@ import SearchPage from "@/components/search/SearchPage.svelte";
       <HeaderCover
         enable={coverConfig.enable}
         preload={coverConfig.preload}
-        fixedCover={fixedCover}
+        fixedCover={resolvedHeaderCover}
         gradient={coverConfig.gradient}
         covers={covers}
         title={brandConfig.title}

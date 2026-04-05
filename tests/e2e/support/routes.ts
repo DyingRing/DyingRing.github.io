@@ -9,6 +9,7 @@ export const ROUTES = {
 
 export const POSTS = {
   helloWorld: "/posts/hello-world/",
+  gettingStarted: "/posts/getting-started/",
   encryptedTest: "/posts/encrypted-test/",
   noteMdxDemo: "/posts/note-mdx-demo/",
   postMigrationTest: "/posts/post-migration-test/",

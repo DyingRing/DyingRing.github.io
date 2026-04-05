@@ -39,20 +39,24 @@ function prefersReducedMotion(win: Window): boolean {
   return win.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
+function persistTheme(win: Window, theme: ThemeMode) {
+  try {
+    win.localStorage.setItem(STORAGE_KEY, theme);
+  } catch (err) {
+    console.warn("[ShokaX] Unable to persist theme", err);
+  }
+}
+
 export function toggleThemeWithTransition(
   doc: Document,
   win: Window,
   current: ThemeMode,
 ): ThemeMode {
   const next: ThemeMode = current === "dark" ? "light" : "dark";
+  persistTheme(win, next);
 
   if (!supportsViewTransitions(doc) || prefersReducedMotion(win)) {
     applyTheme(doc, next);
-    try {
-      win.localStorage.setItem(STORAGE_KEY, next);
-    } catch (err) {
-      console.warn("[ShokaX] Unable to persist theme", err);
-    }
 
     return next;
   }
@@ -62,20 +66,10 @@ export function toggleThemeWithTransition(
   });
 
   transition.finished
-    .then(() => {
-      try {
-        win.localStorage.setItem(STORAGE_KEY, next);
-      } catch (err) {
-        console.warn("[ShokaX] Unable to persist theme", err);
-      }
-    })
+    .then(() => {})
     .catch((err) => {
       console.warn("[ShokaX] Theme transition failed", err);
-      try {
-        win.localStorage.setItem(STORAGE_KEY, next);
-      } catch (storageErr) {
-        console.warn("[ShokaX] Unable to persist theme", storageErr);
-      }
+      persistTheme(win, next);
     });
 
   return next;
@@ -84,12 +78,7 @@ export function toggleThemeWithTransition(
 export function toggleTheme(doc: Document, win: Window, current: ThemeMode): ThemeMode {
   const next: ThemeMode = current === "dark" ? "light" : "dark";
   applyTheme(doc, next);
-
-  try {
-    win.localStorage.setItem(STORAGE_KEY, next);
-  } catch (err) {
-    console.warn("[ShokaX] Unable to persist theme", err);
-  }
+  persistTheme(win, next);
 
   return next;
 }
