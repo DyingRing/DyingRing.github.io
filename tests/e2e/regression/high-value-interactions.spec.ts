@@ -5,6 +5,24 @@ function escapeRegExp(input: string) {
   return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+async function readTheme(page: import("@playwright/test").Page) {
+  return expect
+    .poll(async () => {
+      return page.evaluate(() => {
+        return document.documentElement.getAttribute("data-theme");
+      });
+    })
+    .toBeTruthy();
+}
+
+async function waitForEnabled(locator: import("@playwright/test").Locator) {
+  await expect
+    .poll(async () => {
+      return locator.isEnabled();
+    })
+    .toBe(true);
+}
+
 test("@regression 加密文章密码链路：错误提示、正确解密、刷新回到锁定态", async ({ page }) => {
   await page.goto(POSTS.encryptedTest);
 
@@ -15,10 +33,12 @@ test("@regression 加密文章密码链路：错误提示、正确解密、刷�
   await expect(page.getByText("这篇文章需要密码才能查看")).toBeVisible();
 
   await passwordInput.fill("wrong-password");
+  await waitForEnabled(submitButton);
   await submitButton.click();
   await expect(page.getByText("密码错误，请重试")).toBeVisible();
 
   await passwordInput.fill("test123");
+  await waitForEnabled(submitButton);
   await submitButton.click();
 
   await expect(page.getByText("这是一篇加密文章的测试内容。", { exact: true })).toBeVisible();
@@ -121,7 +141,10 @@ test("@critical 分页与标签/分类列表进入文章后回退，URL与列表
 });
 
 test("@regression 主题切换后跨页面导航与刷新仍保持", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(ROUTES.home);
+
+  await readTheme(page);
 
   const initialTheme = await page.evaluate(() => {
     return document.documentElement.getAttribute("data-theme");
@@ -171,21 +194,11 @@ test("@regression 主题切换后跨页面导航与刷新仍保持", async ({ pa
     })
     .toBe(toggledTheme ?? null);
 
-  if (toggledTheme === "light") {
-    await expect
-      .poll(async () => {
-        return page.evaluate(() => {
-          return window.localStorage.getItem("shokax-color-scheme");
-        });
-      })
-      .toBeNull();
-  } else {
-    await expect
-      .poll(async () => {
-        return page.evaluate(() => {
-          return window.localStorage.getItem("shokax-color-scheme");
-        });
-      })
-      .toBe("dark");
-  }
+  await expect
+    .poll(async () => {
+      return page.evaluate(() => {
+        return window.localStorage.getItem("shokax-color-scheme");
+      });
+    })
+    .toBe(toggledTheme);
 });
