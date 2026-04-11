@@ -620,10 +620,10 @@ type Primitive = string | number | boolean | bigint | symbol | null | undefined;
 export type ThemeUserConfig<T> = T extends Primitive
   ? T
   : T extends readonly unknown[]
-  ? T
-  : T extends object
-  ? { [K in keyof T]?: ThemeUserConfig<T[K]> }
-  : T;
+    ? T
+    : T extends object
+      ? { [K in keyof T]?: ThemeUserConfig<T[K]> }
+      : T;
 
 export type ShokaXThemeUserConfig = ThemeUserConfig<ShokaXThemeConfig>;
 
