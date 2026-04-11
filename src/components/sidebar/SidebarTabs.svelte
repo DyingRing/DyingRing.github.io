@@ -15,30 +15,31 @@
 </script>
 
 {#if panels.length > 1}
-  <ul
-    class="tab absolute inline-flex pt-[30px] pb-2.5 px-0 m-0 min-h-[30px] list-none"
-  >
+  <ul class="tab absolute inline-flex pt-[30px] pb-2.5 px-0 m-0 min-h-[30px] list-none">
     {#each panels as panel, i (panel.id)}
       {@const iconClass =
         panel.id === "contents"
           ? "i-ri-list-ordered"
           : panel.id === "related"
             ? "i-ri-git-branch-line"
-            : panel.id === "overview"
+          : panel.id === "overview"
               ? "i-ri-home-2-line"
               : ""}
-      <button
-        class={`item ${panel.id} ${activePanel === panel.id ? "active" : ""} ${i === 1 ? "mx-2.5" : ""}`}
-        onclick={() => onSelect(panel.id)}
-        type="button"
-      >
-        {#if iconClass}
-          <div class={`${iconClass}`}></div>
-        {/if}
-        {#if activePanel === panel.id}
-          <span class="ml-[5px] break-keep">{panel.title}</span>
-        {/if}
-      </button>
+      <li>
+        <button
+          aria-label={panel.title}
+          class={`item ${panel.id} ${activePanel === panel.id ? "active" : ""} ${i === 1 ? "mx-2.5" : ""}`}
+          onclick={() => onSelect(panel.id)}
+          type="button"
+        >
+          {#if iconClass}
+            <div aria-hidden="true" class={`${iconClass}`}></div>
+          {/if}
+          {#if activePanel === panel.id}
+            <span class="ml-[5px] break-keep">{panel.title}</span>
+          {/if}
+        </button>
+      </li>
     {/each}
   </ul>
 {/if}
@@ -47,6 +48,10 @@
   /* :global 和渐变样式无法原子化，保留 */
   :global(#sidebar.affix) .tab {
     padding-top: 0.625rem;
+  }
+
+  .tab li {
+    display: inline-flex;
   }
 
   .tab .item {

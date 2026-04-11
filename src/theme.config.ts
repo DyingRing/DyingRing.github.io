@@ -50,6 +50,11 @@ export default defineConfig({
       href: "/moments/",
       icon: "i-ri-chat-quote-line",
     },
+    {
+      text: "统计",
+      href: "/statistics/",
+      icon: "i-ri-bar-chart-box-line",
+    },
   ],
   brand: {
     title: "ShokaX",

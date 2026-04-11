@@ -303,13 +303,18 @@
   font-size: 0.875rem;
 }
 
+.post-nav .item .post-nav-title {
+  font-size: 1.17em;
+  font-weight: 700;
+}
+
 .post-nav .item.left span,
-.post-nav .item.left h3 {
+.post-nav .item.left .post-nav-title {
   align-self: flex-start;
 }
 
 .post-nav .item.right span,
-.post-nav .item.right h3 {
+.post-nav .item.right .post-nav-title {
   align-self: flex-end;
   text-align: right;
 }

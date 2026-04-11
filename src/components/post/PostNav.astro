@@ -44,7 +44,7 @@ const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
               {prevPost.category}
             </span>
           )}
-          <h3>{prevPost.title}</h3>
+          <span class="post-nav-title">{prevPost.title}</span>
         </a>
       )
     }
@@ -71,7 +71,7 @@ const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
               {nextPost.category}
             </span>
           )}
-          <h3>{nextPost.title}</h3>
+          <span class="post-nav-title">{nextPost.title}</span>
         </a>
       )
     }

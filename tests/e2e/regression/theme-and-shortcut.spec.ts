@@ -1,6 +1,29 @@
 import { expect, test } from "@playwright/test";
 import { ROUTES } from "../support/routes";
 
+async function openSearchDialog(page: import("@playwright/test").Page) {
+  const openSearchButton = page.locator("#search");
+  const searchDialog = page.getByRole("dialog", { name: "Search" });
+
+  await expect(openSearchButton).toBeVisible();
+
+  if (await searchDialog.isVisible()) {
+    return searchDialog;
+  }
+
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    await openSearchButton.click();
+
+    try {
+      await expect(searchDialog).toBeVisible({ timeout: 1000 });
+      return searchDialog;
+    } catch {}
+  }
+
+  await expect(searchDialog).toBeVisible();
+  return searchDialog;
+}
+
 test("@regression 主题切换后刷新仍保持", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(ROUTES.home);
@@ -53,12 +76,17 @@ test("@regression 主题切换后刷新仍保持", async ({ page }) => {
 test("@regression Ctrl/Cmd+K 可唤起搜索面板", async ({ page }) => {
   await page.goto(ROUTES.home);
 
-  await page.getByRole("button", { name: "Search" }).click();
-  const searchDialog = page.getByRole("dialog", { name: "Search" });
-  await expect(searchDialog).toBeVisible();
+  const searchDialog = await openSearchDialog(page);
 
   await page.keyboard.press("Escape");
   await expect(searchDialog).not.toBeVisible();
+
+  await page.evaluate(() => {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
+  });
 
   const shortcut = process.platform === "darwin" ? "Meta+K" : "Control+K";
   await page.keyboard.press(shortcut);

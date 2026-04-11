@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { t } from "@/i18n";
   import { onMount, tick } from "svelte";
 
   type Speaker = "bot" | "user";
@@ -35,38 +36,38 @@
   const defaultNodes: ChatNode[] = [
     {
       id: "intro",
-      text: "你好，这里是可配置对话组件示例。请选择一个回复继续。",
+      text: t("aboutDialog.defaultNodes.intro.text"),
       options: [
         {
-          label: "示例问题 A",
-          reply: "我想看示例问题 A 的回复。",
+          label: t("aboutDialog.defaultNodes.intro.optionA.label"),
+          reply: t("aboutDialog.defaultNodes.intro.optionA.reply"),
           nextId: "answer-a",
         },
         {
-          label: "示例问题 B",
-          reply: "我想看示例问题 B 的回复。",
+          label: t("aboutDialog.defaultNodes.intro.optionB.label"),
+          reply: t("aboutDialog.defaultNodes.intro.optionB.reply"),
           nextId: "answer-b",
         },
       ],
     },
     {
       id: "answer-a",
-      text: "这是示例回答 A。你可以把节点文本和选项替换成自己的内容。",
+      text: t("aboutDialog.defaultNodes.answerA.text"),
       options: [
         {
-          label: "返回菜单",
-          reply: "回到菜单。",
+          label: t("aboutDialog.defaultNodes.backToMenu.label"),
+          reply: t("aboutDialog.defaultNodes.backToMenu.reply"),
           nextId: "intro",
         },
       ],
     },
     {
       id: "answer-b",
-      text: "这是示例回答 B。你也可以通过 nodes 属性在页面里覆盖默认对话。",
+      text: t("aboutDialog.defaultNodes.answerB.text"),
       options: [
         {
-          label: "返回菜单",
-          reply: "回到菜单。",
+          label: t("aboutDialog.defaultNodes.backToMenu.label"),
+          reply: t("aboutDialog.defaultNodes.backToMenu.reply"),
           nextId: "intro",
         },
       ],
@@ -74,25 +75,27 @@
   ];
 
   let {
-    title = "快速对话",
-    intro = "选择一个回复选项继续对话。你可以在组件里预先定义分支与回复。",
-    authorName = "作者",
+    title = t("aboutDialog.defaults.title"),
+    intro = t("aboutDialog.defaults.intro"),
+    authorName = t("aboutDialog.defaults.authorName"),
     authorAvatar = "",
     startId = "intro",
     nodes = defaultNodes,
-    endHint = "这段对话已经结束。你可以点击“重新开始”再聊一次。",
+    endHint = t("aboutDialog.defaults.endHint"),
     typingDelayMs = 650,
   }: Props = $props();
 
   let viewport = $state<HTMLDivElement | null>(null);
   let messages = $state<ChatMessage[]>([]);
-  let currentNodeId = $state(startId);
+  let currentNodeId = $state("");
   let isTyping = $state(false);
 
   const nodeMap = $derived(new Map(nodes.map((node) => [node.id, node])));
   const currentNode = $derived(nodeMap.get(currentNodeId));
   const currentOptions = $derived(currentNode?.options ?? []);
-  const authorInitial = $derived(authorName.trim().slice(0, 1) || "作");
+  const authorInitial = $derived(
+    authorName.trim().slice(0, 1) || t("aboutDialog.defaults.authorInitial"),
+  );
 
   const createMessage = (speaker: Speaker, text: string): ChatMessage => ({
     id: `${speaker}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
@@ -123,7 +126,7 @@
 
     messages = firstNode
       ? [createMessage("bot", firstNode.text)]
-      : [createMessage("bot", "还没有配置对话节点。")];
+      : [createMessage("bot", t("aboutDialog.runtime.noNodesConfigured"))];
     void scrollToBottom();
   };
 
@@ -135,7 +138,7 @@
     const nextNode = nodeMap.get(option.nextId);
     const botReply = nextNode
       ? nextNode.text
-      : "这个分支还没配置完成，请先选择其它选项。";
+      : t("aboutDialog.runtime.branchNotConfigured");
 
     messages = [
       ...messages,
@@ -162,6 +165,12 @@
   onMount(() => {
     initializeConversation();
   });
+
+  $effect(() => {
+    if (currentNodeId === "") {
+      currentNodeId = startId;
+    }
+  });
 </script>
 
 <section class="about-dialog" aria-label={title}>
@@ -172,7 +181,7 @@
 
   <div class="dialog-body" bind:this={viewport}>
     {#if messages.length === 0}
-      <p class="dialog-empty">暂无对话内容，请先配置节点。</p>
+      <p class="dialog-empty">{t("aboutDialog.runtime.noDialogContent")}</p>
     {:else}
       {#each messages as message (message.id)}
         <div class="message-row" class:is-user={message.speaker === "user"}>
@@ -213,7 +222,7 @@
               class="message-bubble typing-bubble"
               role="status"
               aria-live="polite"
-              aria-label="正在输入"
+              aria-label={t("aboutDialog.typing.ariaLabel")}
             >
               <span class="typing-dot"></span>
               <span class="typing-dot"></span>
@@ -228,9 +237,11 @@
   <footer class="dialog-footer">
     <div class="fake-input" class:is-typing={isTyping} aria-hidden="true">
       <span class="fake-input-text"
-        >{isTyping ? "对方正在输入…" : "在这里输入消息（演示输入框）"}</span
+        >{isTyping
+          ? t("aboutDialog.typing.peerTyping")
+          : t("aboutDialog.typing.inputPlaceholder")}</span
       >
-      <span class="fake-input-action">发送</span>
+      <span class="fake-input-action">{t("aboutDialog.actions.send")}</span>
     </div>
 
     {#if currentOptions.length > 0}
@@ -256,7 +267,7 @@
       disabled={isTyping}
       onclick={restart}
     >
-      重新开始
+      {t("aboutDialog.actions.restart")}
     </button>
   </footer>
 </section>

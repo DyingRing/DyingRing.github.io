@@ -4,7 +4,8 @@
     "posts": "Posts",
     "categories": "Categories",
     "tags": "Tags",
-    "archives": "Archives"
+    "archives": "Archives",
+    "statistics": "Statistics"
   },
   "post": {
     "wordCount": "Word Count",
@@ -55,6 +56,18 @@
     "ok": "OK",
     "emh": "Hmm..",
     "keepTrying": "Keep it up"
+  },
+  "statistics": {
+    "title": "Article Statistics",
+    "totalPosts": "Total Posts",
+    "totalCategories": "Total Categories",
+    "totalTags": "Total Tags",
+    "topCategory": "Most Used Category",
+    "postCount": "Posts",
+    "monthlyPosts": "Monthly Publishing Trend",
+    "categoryDistribution": "Category Distribution (Top 10)",
+    "tagDistribution": "Tag Distribution (Top 16)",
+    "latestMonthSummary": "In {{month}}, {{count}} posts were published."
   },
   "sidebar": {
     "toc": "Table of Contents",
@@ -165,5 +178,51 @@
     "noPost": "No posts available",
     "retry": "Try Again",
     "noScript": "JavaScript is disabled in this browser. Please go back home and pick a post manually."
+  },
+  "aboutDialog": {
+    "defaults": {
+      "title": "Quick Chat",
+      "intro": "Choose an option to continue the conversation. You can predefine branches and replies in the component.",
+      "authorName": "Author",
+      "authorInitial": "A",
+      "endHint": "This conversation has ended. Click \"Restart\" to chat again."
+    },
+    "defaultNodes": {
+      "intro": {
+        "text": "Hi, this is a configurable chat component example. Please choose a reply to continue.",
+        "optionA": {
+          "label": "Sample Question A",
+          "reply": "I want to see the reply for sample question A."
+        },
+        "optionB": {
+          "label": "Sample Question B",
+          "reply": "I want to see the reply for sample question B."
+        }
+      },
+      "answerA": {
+        "text": "This is sample answer A. You can replace node texts and options with your own content."
+      },
+      "answerB": {
+        "text": "This is sample answer B. You can also override the default dialogue through the nodes prop."
+      },
+      "backToMenu": {
+        "label": "Back to Menu",
+        "reply": "Back to menu."
+      }
+    },
+    "runtime": {
+      "noNodesConfigured": "No dialogue nodes are configured yet.",
+      "branchNotConfigured": "This branch is not configured yet. Please choose another option.",
+      "noDialogContent": "No dialogue content available. Please configure nodes first."
+    },
+    "typing": {
+      "ariaLabel": "Typing",
+      "peerTyping": "The other side is typing…",
+      "inputPlaceholder": "Type a message here (demo input)"
+    },
+    "actions": {
+      "send": "Send",
+      "restart": "Restart"
+    }
   }
 }

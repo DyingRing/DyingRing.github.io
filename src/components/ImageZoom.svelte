@@ -203,7 +203,14 @@
     role="dialog"
     aria-modal="true"
     aria-label={previewAlt || "图片预览"}
+    tabindex="-1"
     onclick={handleOverlayClick}
+    onkeydown={(event) => {
+      if (event.key === "Escape" || event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        requestClosePreview();
+      }
+    }}
   >
     <button
       type="button"
@@ -219,7 +226,6 @@
       alt={previewAlt}
       loading="eager"
       decoding="async"
-      onclick={requestClosePreview}
     />
     {#if previewAlt}
       <p class="image-zoom-caption">{previewAlt}</p>

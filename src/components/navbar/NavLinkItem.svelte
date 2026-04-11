@@ -5,6 +5,7 @@
     href?: string;
     text?: string;
     icon?: string | null;
+    ariaLabel?: string;
     class?: string;
   }
 
@@ -12,6 +13,7 @@
     href = "#",
     text,
     icon = null,
+    ariaLabel,
     class: className = "",
   }: Props = $props();
 
@@ -22,7 +24,7 @@
 </script>
 
 <NavItem class={mergedClass}>
-  <a {href}>
+  <a {href} aria-label={ariaLabel}>
     {#if icon}
       <div class={iconClasses}></div>
     {/if}

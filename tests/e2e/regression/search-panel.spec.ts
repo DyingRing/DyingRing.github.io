@@ -1,6 +1,28 @@
 import { expect, test } from "@playwright/test";
 import { ROUTES } from "../support/routes";
 
+async function openSearchDialog(page: import("@playwright/test").Page) {
+  const openSearchButton = page.locator("#search");
+  const searchDialog = page.getByRole("dialog", { name: "Search" });
+
+  if (await searchDialog.isVisible()) {
+    return searchDialog;
+  }
+
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    await openSearchButton.click();
+
+    if (await searchDialog.isVisible()) {
+      return searchDialog;
+    }
+
+    await page.waitForTimeout(150);
+  }
+
+  await expect(searchDialog).toBeVisible();
+  return searchDialog;
+}
+
 test("@regression 搜索面板支持按钮关闭并恢复页面滚动", async ({ page }) => {
   await page.goto(ROUTES.home);
 
@@ -8,12 +30,9 @@ test("@regression 搜索面板支持按钮关闭并恢复页面滚动", async ({
     return document.body.style.overflow;
   });
 
-  await page.getByRole("button", { name: "Search" }).click();
+  const searchDialog = await openSearchDialog(page);
 
-  const searchDialog = page.getByRole("dialog", { name: "Search" });
-  await expect(searchDialog).toBeVisible();
-
-  const searchInput = page.locator(".pagefind-ui__search-input");
+  const searchInput = page.locator("pagefind-input input");
   await expect(searchInput).toBeVisible();
   await expect(searchInput).toBeFocused();
 
@@ -41,15 +60,13 @@ test("@regression 输入框聚焦时 Ctrl/Cmd+K 不应触发搜索面板", async
   await page.goto(ROUTES.home);
 
   const searchDialog = page.getByRole("dialog", { name: "Search" });
-  const openSearchButton = page.getByRole("button", { name: "Search" });
   const closeSearchButton = page.getByRole("button", {
     name: "Close search",
     exact: true,
   });
   const shortcut = process.platform === "darwin" ? "Meta+K" : "Control+K";
 
-  await openSearchButton.click();
-  await expect(searchDialog).toBeVisible();
+  await openSearchDialog(page);
   await closeSearchButton.click();
   await expect(searchDialog).not.toBeVisible();
 

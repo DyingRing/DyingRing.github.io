@@ -8,7 +8,7 @@ async function openSearchPanel(page: import("@playwright/test").Page) {
   const searchDialog = page.getByRole("dialog", { name: "Search" });
   await expect(searchDialog).toBeVisible();
 
-  const searchInput = page.locator(".pagefind-ui__search-input");
+  const searchInput = page.locator("pagefind-input input");
   await expect(searchInput).toBeVisible();
 
   return searchInput;
@@ -22,7 +22,7 @@ test("@critical 搜索可命中公开文章", async ({ page }) => {
   await expect
     .poll(async () => {
       return page
-        .locator(".pagefind-ui__result-link", {
+        .locator("pagefind-results a", {
           hasText: SEARCH_TERMS.publicPostTitle,
         })
         .count();
@@ -37,7 +37,7 @@ test("@critical 搜索结果排除加密文章", async ({ page }) => {
 
   await expect
     .poll(async () => {
-      return page.locator(`.pagefind-ui__result-link[href*="${POSTS.encryptedTest}"]`).count();
+      return page.locator(`pagefind-results a[href*="${POSTS.encryptedTest}"]`).count();
     })
     .toBe(0);
 
@@ -45,7 +45,7 @@ test("@critical 搜索结果排除加密文章", async ({ page }) => {
 
   await expect
     .poll(async () => {
-      return page.locator(`.pagefind-ui__result-link[href*="${POSTS.encryptedTest}"]`).count();
+      return page.locator(`pagefind-results a[href*="${POSTS.encryptedTest}"]`).count();
     })
     .toBe(0);
 });
