@@ -2,6 +2,7 @@ import type { NavItemType } from "@/components/navbar/NavTypes";
 import type { SidebarConfig } from "@/components/sidebar/SidebarTypes";
 import type { Locale } from "@/i18n";
 import { sanitizeThemeColor, type ThemeColorValue } from "./themeColor";
+import { DEFAULT_THEME_CONFIG } from "./themeConfig.defaults";
 
 interface BrandConfig {
   /**
@@ -614,6 +615,18 @@ export interface ShokaXThemeConfig {
   hyc?: HycConfig;
 }
 
+type Primitive = string | number | boolean | bigint | symbol | null | undefined;
+
+export type ThemeUserConfig<T> = T extends Primitive
+  ? T
+  : T extends readonly unknown[]
+    ? T
+    : T extends object
+      ? { [K in keyof T]?: ThemeUserConfig<T[K]> }
+      : T;
+
+export type ShokaXThemeUserConfig = ThemeUserConfig<ShokaXThemeConfig>;
+
 const DEFAULT_THEME_COLORS = {
   footerIcon: "var(--color-pink)",
   tagCloudStart: "var(--grey-6)",
@@ -677,6 +690,68 @@ function normalizeThemeConfigColors(config: ShokaXThemeConfig): ShokaXThemeConfi
   return config;
 }
 
-export function defineConfig(config: ShokaXThemeConfig) {
-  return normalizeThemeConfigColors(config);
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function cloneConfigValue<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((item) => cloneConfigValue(item)) as T;
+  }
+
+  if (isPlainObject(value)) {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entryValue]) => [key, cloneConfigValue(entryValue)]),
+    ) as T;
+  }
+
+  return value;
+}
+
+/**
+ * 递归合并主题配置对象。
+ * - 对于对象类型，进行深度合并，覆盖默认值的同时保留未覆盖的默认配置项
+ * - 对于数组类型，直接使用覆盖值，不进行合并
+ * - 对于原始值，直接使用覆盖值
+ */
+function mergeThemeConfig<T>(defaults: T, overrides?: ThemeUserConfig<T>): T {
+  if (overrides === undefined) {
+    return cloneConfigValue(defaults);
+  }
+
+  if (Array.isArray(defaults) || Array.isArray(overrides)) {
+    return cloneConfigValue(overrides as T);
+  }
+
+  if (isPlainObject(defaults) && isPlainObject(overrides)) {
+    const mergedEntries = new Map<string, unknown>();
+
+    Object.keys(defaults).forEach((key) => {
+      mergedEntries.set(
+        key,
+        mergeThemeConfig(defaults[key as keyof typeof defaults], overrides[key]),
+      );
+    });
+
+    Object.keys(overrides).forEach((key) => {
+      if (mergedEntries.has(key)) {
+        return;
+      }
+
+      const overrideValue = overrides[key];
+      if (overrideValue !== undefined) {
+        mergedEntries.set(key, cloneConfigValue(overrideValue));
+      }
+    });
+
+    return Object.fromEntries(mergedEntries) as T;
+  }
+
+  return cloneConfigValue(overrides as T);
+}
+
+export function defineConfig(config: ShokaXThemeUserConfig = {}): ShokaXThemeConfig {
+  return normalizeThemeConfigColors(
+    mergeThemeConfig<ShokaXThemeConfig>(DEFAULT_THEME_CONFIG, config),
+  );
 }

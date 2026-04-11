@@ -1,6 +1,13 @@
 import { expect, test } from "@playwright/test";
 import { ROUTES } from "../support/routes";
 
+async function measureMainOffset(page: import("@playwright/test").Page) {
+  return page.evaluate(() => {
+    const target = document.querySelector("main article, main") as HTMLElement | null;
+    return target?.getBoundingClientRect().left ?? 0;
+  });
+}
+
 async function openSearchDialog(page: import("@playwright/test").Page) {
   const openSearchButton = page.locator("#search");
   const searchDialog = page.getByRole("dialog", { name: "Search" });
@@ -10,7 +17,7 @@ async function openSearchDialog(page: import("@playwright/test").Page) {
   }
 
   for (let attempt = 0; attempt < 6; attempt += 1) {
-    await openSearchButton.click();
+    await openSearchButton.click({ force: true });
 
     if (await searchDialog.isVisible()) {
       return searchDialog;
@@ -95,4 +102,17 @@ test("@regression 输入框聚焦时 Ctrl/Cmd+K 不应触发搜索面板", async
 
   await page.keyboard.press(shortcut);
   await expect(searchDialog).not.toBeVisible();
+});
+
+test("@regression 打开搜索面板时页面主体不应因滚动条消失而横向偏移", async ({ page }) => {
+  await page.goto(ROUTES.home);
+
+  const beforeOpen = await measureMainOffset(page);
+  await openSearchDialog(page);
+
+  await expect
+    .poll(async () => {
+      return measureMainOffset(page);
+    })
+    .toBe(beforeOpen);
 });

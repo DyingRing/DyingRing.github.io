@@ -11,6 +11,7 @@ export const POSTS = {
   helloWorld: "/posts/hello-world/",
   gettingStarted: "/posts/getting-started/",
   encryptedTest: "/posts/encrypted-test/",
+  imageZoomTest: "/posts/image-zoom-test/",
   noteMdxDemo: "/posts/note-mdx-demo/",
   postMigrationTest: "/posts/post-migration-test/",
 } as const;

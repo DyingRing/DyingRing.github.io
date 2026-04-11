@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from "svelte";
   import { getT } from "@/i18n";
   import themeConfig from "@/theme.config";
+  import { lockBodyScroll } from "@/toolkit/ui/scrollLock";
 
   const isDev = import.meta.env.DEV;
   const searchPanelTransitionMs = 350;
@@ -243,12 +244,10 @@
   $effect(() => {
     if (typeof document === "undefined" || !visible) return;
 
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
+    return lockBodyScroll(document, {
+      innerWidth: window.innerWidth,
+      getComputedPaddingInlineEnd: () => window.getComputedStyle(document.body).paddingInlineEnd,
+    });
   });
 </script>
 

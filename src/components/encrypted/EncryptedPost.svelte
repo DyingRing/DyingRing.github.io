@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
   import type { EncryptedData, TocItem } from "@/toolkit/encryption/types";
   import { decryptContent } from "@/toolkit/encryption/crypto";
   import { encryptedTocStore } from "@/stores/encryptedTocStore";
@@ -28,10 +27,6 @@
 
   const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
 
-  const dispatch = createEventDispatcher<{
-    decrypted: { content: string; toc?: TocItem[] };
-  }>();
-
   let isDecrypted = $state(false);
   let decryptedContent = $state("");
   let decryptedToc = $state<TocItem[] | undefined>(undefined);
@@ -50,7 +45,6 @@
         // 更新侧边栏 TOC
         encryptedTocStore.set(decryptedToc);
       }
-      dispatch("decrypted", { content, toc: decryptedToc });
       isDecrypted = true;
     } finally {
       isDecrypting = false;
