@@ -43,7 +43,7 @@
         "remark-emoji": "^5.0.2",
         "remark-extended-table": "^2.0.3",
         "remark-gfm": "^4.0.1",
-        "remark-ins": "^1.2.3",
+        "remark-ins": "^1.2.4",
         "remark-math": "^6.0.0",
         "remark-ruby-directive": "^0.3.0",
         "svelte": "^5.55.4",
@@ -1952,7 +1952,7 @@
 
     "remark-gfm": ["remark-gfm@4.0.1", "https://registry.npmmirror.com/remark-gfm/-/remark-gfm-4.0.1.tgz", { "dependencies": { "@types/mdast": "^4.0.0", "mdast-util-gfm": "^3.0.0", "micromark-extension-gfm": "^3.0.0", "remark-parse": "^11.0.0", "remark-stringify": "^11.0.0", "unified": "^11.0.0" } }, "sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg=="],
 
-    "remark-ins": ["remark-ins@1.2.3", "https://registry.npmmirror.com/remark-ins/-/remark-ins-1.2.3.tgz", { "dependencies": { "@types/mdast": "^4.0.4", "unist-builder": "^4.0.0", "unist-util-find-after": "^5.0.0", "unist-util-find-all-after": "^5.0.0", "unist-util-find-all-before": "^5.0.0", "unist-util-find-between-all": "^1.1.6", "unist-util-visit": "^5.1.0" }, "peerDependencies": { "unified": "^11" } }, "sha512-ep6ZXoLdy+8DUq1Fs2fzX5AAyQD7e0bEIbc0aMoY1UPbDNdOwa0mr1yM81nk66HVPOqjmziQmfitiyrpc5/8iw=="],
+    "remark-ins": ["remark-ins@1.2.4", "https://registry.npmmirror.com/remark-ins/-/remark-ins-1.2.4.tgz", { "dependencies": { "@types/mdast": "^4.0.4", "unist-builder": "^4.0.0", "unist-util-find-after": "^5.0.0", "unist-util-find-all-after": "^5.0.0", "unist-util-find-all-before": "^5.0.0", "unist-util-find-between": "^1.2.1", "unist-util-visit": "^5.1.0" }, "peerDependencies": { "unified": "^11" } }, "sha512-ZVGiyuAB2dIGCgOly2ikI+CjT63N84z7OG3tdpZyrAMF8xSAR1HiVGpYg/BQlIQizu2SCfdemC9hYIl/7kKr8w=="],
 
     "remark-math": ["remark-math@6.0.0", "https://registry.npmmirror.com/remark-math/-/remark-math-6.0.0.tgz", { "dependencies": { "@types/mdast": "^4.0.0", "mdast-util-math": "^3.0.0", "micromark-extension-math": "^3.0.0", "unified": "^11.0.0" } }, "sha512-MMqgnP74Igy+S3WwnhQ7kqGlEerTETXMvJhrUzDikVZ2/uogJCb+WHUg97hK9/jcfc0dkD73s3LN8zU49cTEtA=="],
 
@@ -2228,7 +2228,7 @@
 
     "unist-util-find-all-before": ["unist-util-find-all-before@5.0.0", "https://registry.npmmirror.com/unist-util-find-all-before/-/unist-util-find-all-before-5.0.0.tgz", { "dependencies": { "@types/unist": "^3.0.0", "unist-util-is": "^6.0.0" } }, "sha512-zir6a7GsXfdn4YAWR4F3hLNKZjTjLBJurdyquysvmX38xbftS1+qwvEhutxxHLq0Pp1tW5V1TDiuj+qluuOnKw=="],
 
-    "unist-util-find-between-all": ["unist-util-find-between-all@1.1.6", "https://registry.npmmirror.com/unist-util-find-between-all/-/unist-util-find-between-all-1.1.6.tgz", { "dependencies": { "@types/unist": "^3.0.3", "unist-util-is": "^6.0.1" } }, "sha512-KTlYGJMu3waM/UiDoyJ374VzIvRRfw5yO/DLuy2vkzTfjJ41HDgAO/Tukzga7imk9l3W688arso3kE+5b+IW6g=="],
+    "unist-util-find-between": ["unist-util-find-between@1.2.1", "https://registry.npmmirror.com/unist-util-find-between/-/unist-util-find-between-1.2.1.tgz", { "dependencies": { "@types/unist": "^3.0.3", "unist-util-is": "^6.0.1" } }, "sha512-40W6SCvWk8MO+OyAzM1Ap6nKawyM7klSapiKGZQAgyZNbyIFibKAjMk+fct9nC6GcIPRfthBh6udKYrggjnGhQ=="],
 
     "unist-util-is": ["unist-util-is@6.0.1", "https://registry.npmmirror.com/unist-util-is/-/unist-util-is-6.0.1.tgz", { "dependencies": { "@types/unist": "^3.0.0" } }, "sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g=="],
 
