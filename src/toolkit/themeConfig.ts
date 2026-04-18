@@ -518,6 +518,8 @@ export interface ShokaXThemeConfig {
   /**
    * 网站语言设置。
    * - "zh-CN"：简体中文
+   * - "zh-TW"：繁体中文
+   * - "ja"：日语
    * - "en"：英文
    * - 默认为 "zh-CN"
    */

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { shuffle } from "es-toolkit";
   import { onMount } from "svelte";
-  import { t } from "@/i18n";
+  import { currentLocale, t } from "@/i18n";
   import { toPostHref } from "@/toolkit/posts/url";
 
   interface Post {
@@ -49,7 +49,7 @@
       return "";
     }
 
-    return date.toLocaleString("zh-CN", {
+    return date.toLocaleString(currentLocale, {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",

@@ -1,19 +1,20 @@
 ---
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 
-const locale = (themeConfig.locale as "zh-CN" | "en") || "zh-CN";
+const locale = currentLocale;
 const t = getT(locale);
 const now = new Date();
 const year = now.getFullYear();
 const month = now.getMonth();
 const today = now.getDate();
 const monthStart = new Date(year, month, 1);
-const firstWeekday =
-  locale === "zh-CN" ? (monthStart.getDay() + 6) % 7 : monthStart.getDay();
+const mondayFirstLocales = new Set(["zh-CN"]);
+const useMondayAsFirstDay = mondayFirstLocales.has(locale);
+const firstWeekday = useMondayAsFirstDay
+  ? (monthStart.getDay() + 6) % 7
+  : monthStart.getDay();
 const daysInMonth = new Date(year, month + 1, 0).getDate();
-const weekdayBase =
-  locale === "zh-CN" ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+const weekdayBase = useMondayAsFirstDay ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
 const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
 const weekdays = weekdayBase.map((day) => {
   // 2026-02-01 是星期日，这里仅用于 Intl.DateTimeFormat weekday 本地化格式化，

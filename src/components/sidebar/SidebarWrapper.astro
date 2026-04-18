@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Sidebar from "./Sidebar.svelte";
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 import type { NavItemType } from "../navbar/NavTypes";
 import type {
   TocItem,
@@ -44,7 +43,7 @@ const {
   },
 } = Astro.props;
 
-const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+const t = getT(currentLocale);
 const authorLabel = config.author || t("post.author");
 ---
 

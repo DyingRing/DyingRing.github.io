@@ -2,7 +2,7 @@
   import { init, type WalineInstance } from "@waline/client";
   import "@waline/client/style";
   import { onMount } from "svelte";
-  import { t } from "@/i18n";
+  import { currentLocale, t } from "@/i18n";
 
   interface Props {
     serverURL?: string;
@@ -14,7 +14,7 @@
 
   const {
     serverURL = "",
-    lang = "zh-CN",
+    lang = currentLocale,
     dark = false,
     path = "",
     pagePath = "",

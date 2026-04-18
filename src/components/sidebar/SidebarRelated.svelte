@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
   import type { RelatedPost } from "./SidebarTypes";
 
   interface Props {
@@ -9,7 +8,7 @@
   }
 
   const { posts = [], currentSlug = "" }: Props = $props();
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 </script>
 
 <div class="related text-[0.8125rem]">

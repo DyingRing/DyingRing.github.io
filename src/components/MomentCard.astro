@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { currentLocale, t } from "@/i18n";
 
 interface Props {
   moment: CollectionEntry<"moments">;
@@ -9,7 +10,7 @@ const { moment } = Astro.props;
 
 // 格式化日期
 function formatDate(date: Date): string {
-  return date.toLocaleDateString("zh-CN", {
+  return date.toLocaleDateString(currentLocale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -58,7 +59,7 @@ const content = moment.body || "";
               <image-zoom>
                 <img
                   src={src}
-                  alt={`图片 ${index + 1}`}
+                  alt={t("moments.imageAlt", { index: index + 1 })}
                   loading="lazy"
                   decoding="async"
                   class="moment-image"

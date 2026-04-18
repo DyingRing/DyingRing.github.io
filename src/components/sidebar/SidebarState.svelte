@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
 
   interface Props {
     state: {
@@ -11,7 +10,7 @@
   }
 
   const { state }: Props = $props();
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 </script>
 
 {#if state && (state.posts || state.categories || state.tags)}

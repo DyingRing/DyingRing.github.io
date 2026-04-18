@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 import { sanitizeThemeColor, type ThemeColorValue } from "@/toolkit/themeColor";
 import "./footer.css";
 
@@ -28,7 +27,7 @@ interface Props {
 }
 
 const { config = {}, siteName = "ShokaX", author = "Author" } = Astro.props;
-const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+const t = getT(currentLocale);
 
 // Get all posts for statistics
 const allPosts = await getCollection("posts");
@@ -94,14 +93,14 @@ const iconColor = sanitizeThemeColor(
             <span class="post-meta-item-icon mr-0 inline">
               <div class="i-ri-line-chart-fill inline-block align-text-bottom text-1rem" />
             </span>
-            <span title="Total words">
+            <span title={t("footer.totalWordsTitle")}>
               {totalWords} {t("post.words")}
             </span>
             <span class="post-meta-divider mx-2"> | </span>
             <span class="post-meta-item-icon mr-0 inline">
               <div class="i-ri-cup-fill inline-block align-text-bottom text-1rem" />
             </span>
-            <span title="Estimated reading time">{readingTimeStr}</span>
+            <span title={t("footer.estimatedReadingTimeTitle")}>{readingTimeStr}</span>
           </div>
         )
       }

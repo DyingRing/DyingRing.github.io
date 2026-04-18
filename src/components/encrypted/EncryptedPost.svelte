@@ -2,8 +2,7 @@
   import type { EncryptedData, TocItem } from "@/toolkit/encryption/types";
   import { decryptContent } from "@/toolkit/encryption/crypto";
   import { encryptedTocStore } from "@/stores/encryptedTocStore";
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
   import PasswordModal from "./PasswordModal.svelte";
   import "./encrypted.css";
 
@@ -25,7 +24,7 @@
     errorText,
   }: Props = $props();
 
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 
   let isDecrypted = $state(false);
   let decryptedContent = $state("");

@@ -1,6 +1,5 @@
 ---
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 import type { CollectionEntry } from "astro:content";
 import { sample } from "es-toolkit/array";
 import SidebarCalendarPlaceholder from "./SidebarCalendarPlaceholder.astro";
@@ -41,7 +40,7 @@ const {
   tagCloudItems = [],
 } = Astro.props;
 
-const locale = (themeConfig.locale as "zh-CN" | "en") || "zh-CN";
+const locale = currentLocale;
 const t = getT(locale);
 
 const showSearch = config.search === true;

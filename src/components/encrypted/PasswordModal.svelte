@@ -2,8 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import type { EncryptedData } from "@/toolkit/encryption/types";
   import { decryptContent, verifyPassword } from "@/toolkit/encryption/crypto";
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
 
   interface Props {
     encryptedData: EncryptedData;
@@ -21,7 +20,7 @@
     errorText,
   }: Props = $props();
 
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 
   // 使用 i18n 默认值
   const _title = $derived(title || t("encrypted.title"));

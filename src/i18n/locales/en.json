@@ -20,8 +20,12 @@
     "noContent": "No posts available",
     "publishedAt": "Published on",
     "createdAt": "Created at",
+    "updatedAt": "Updated on",
     "previousPost": "Previous Post",
     "nextPost": "Next Post",
+    "rewardSupport": "Support",
+    "rewardDescription": "Your support keeps my writing going",
+    "readingNeed": "Takes",
     "license": {
       "text": "This article is licensed under",
       "suffix": "license. Please indicate the source for reprints",
@@ -37,16 +41,19 @@
   },
   "category": {
     "title": "Categories",
+    "all": "All",
     "subcategories": "subcategories",
     "posts": "posts",
     "label": "Category",
-    "noContent": "No posts in this category"
+    "noContent": "No posts in this category",
+    "untitled": "Untitled"
   },
   "tag": {
     "title": "Tags"
   },
   "archive": {
     "title": "Archives",
+    "all": "All",
     "year": "Year",
     "month": "Month",
     "excellent": "Excellent",
@@ -127,6 +134,8 @@
     "poweredBy": "Powered by",
     "and": "&",
     "poweredSuffix": "Theme",
+    "totalWordsTitle": "Total words",
+    "estimatedReadingTimeTitle": "Estimated reading time",
     "randomPosts": "Random Posts",
     "recentComments": "Recent Comments",
     "noRecentComments": "No comments yet. Start a conversation!",
@@ -170,7 +179,8 @@
   "moments": {
     "title": "Moments",
     "noContent": "No moments available",
-    "publishedAt": "Published on"
+    "publishedAt": "Published on",
+    "imageAlt": "Moment image {{index}}"
   },
   "random": {
     "title": "Random Post",

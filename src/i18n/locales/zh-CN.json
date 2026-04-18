@@ -20,8 +20,12 @@
     "noContent": "暂无文章",
     "publishedAt": "发布于",
     "createdAt": "创建于",
+    "updatedAt": "更新于",
     "previousPost": "上一篇",
     "nextPost": "下一篇",
+    "rewardSupport": "赞赏支持",
+    "rewardDescription": "您的支持是我继续创作的动力",
+    "readingNeed": "需要",
     "license": {
       "text": "本文采用",
       "suffix": "许可协议，转载请注明出处",
@@ -37,16 +41,19 @@
   },
   "category": {
     "title": "分类",
+    "all": "全部",
     "subcategories": "个子分类",
     "posts": "篇文章",
     "label": "分类",
-    "noContent": "该分类下暂无文章"
+    "noContent": "该分类下暂无文章",
+    "untitled": "无标题"
   },
   "tag": {
     "title": "标签"
   },
   "archive": {
     "title": "归档",
+    "all": "全部",
     "year": "年",
     "month": "月",
     "excellent": "太棒了",
@@ -127,6 +134,8 @@
     "poweredBy": "由",
     "and": "和",
     "poweredSuffix": "主题强力驱动",
+    "totalWordsTitle": "总字数",
+    "estimatedReadingTimeTitle": "预计阅读时间",
     "randomPosts": "随机文章",
     "recentComments": "最新评论",
     "noRecentComments": "暂无评论，来抢个沙发吧～",
@@ -170,7 +179,8 @@
   "moments": {
     "title": "动态",
     "noContent": "暂无动态",
-    "publishedAt": "发布于"
+    "publishedAt": "发布于",
+    "imageAlt": "动态图片 {{index}}"
   },
   "random": {
     "title": "随机文章",
