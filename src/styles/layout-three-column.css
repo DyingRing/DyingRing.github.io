@@ -46,7 +46,7 @@
   .layout-three-column > .layout-extra-column {
     display: block;
     grid-column: 3;
-    grid-row: 1;
+    grid-row: 1 / 3;
     align-self: stretch;
   }
 
