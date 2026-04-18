@@ -172,7 +172,7 @@
               href={toPostHref(post.slug || post.id)}
               class="hover:text-color-link text-inherit no-underline flex flex-col transition-colors"
             >
-              <span class="breadcrumb text-sm font-semibold m-0 max-h-6"
+              <span class="widget-title text-sm font-semibold m-0 max-h-6"
                 >{post.data.title}</span
               >
               <span class="text-grey-5 text-xs mt-1 max-h-8"
@@ -201,7 +201,7 @@
                 href={comment.href}
                 class="hover:text-color-link text-inherit no-underline flex flex-col transition-colors"
               >
-                <span class="breadcrumb text-sm font-semibold m-0 max-h-6"
+                <span class="widget-title text-sm font-semibold m-0 max-h-6"
                   >{comment.nick} @ {comment.time}</span
                 >
                 <span class="text-grey-5 text-xs mt-1 max-h-8"
@@ -290,13 +290,13 @@
     white-space: nowrap;
   }
 
-  .breadcrumb {
+  .widget-title {
     max-height: 1.5rem;
     color: var(--widget-heading-color);
     font-weight: 500;
   }
 
-  .item span:not(.breadcrumb) {
+  .item span:not(.widget-title) {
     max-height: 2rem;
     color: var(--widget-body-color);
   }
