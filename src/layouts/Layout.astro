@@ -29,6 +29,7 @@ import { createWidgetPosts } from "@/toolkit/posts/createWidgetPosts";
 import { toTagHref } from "@/toolkit/posts/url";
 import Footer from "@/components/footer/Footer.astro";
 import type { ImageMetadata } from "astro";
+import { currentLocale } from "@/i18n";
 
 // Accept sidebar props from child pages
 interface PostMeta {
@@ -151,7 +152,7 @@ import SearchPage from "@/components/search/SearchPage.svelte";
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />

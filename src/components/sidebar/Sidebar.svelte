@@ -12,8 +12,7 @@
   import { onMount } from "svelte";
   import { sidebarOpen } from "../../stores/sidebarStore";
   import { encryptedTocStore } from "../../stores/encryptedTocStore";
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
   import SidebarContents from "./SidebarContents.svelte";
   import { initMenuActive } from "./sidebarHelpers";
   import SidebarOverlay from "./SidebarOverlay.svelte";
@@ -57,7 +56,7 @@
     children,
   }: Props = $props();
 
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 
   let activePanel: PanelType = $state("overview");
   let sidebarElement: HTMLElement | null = $state(null);

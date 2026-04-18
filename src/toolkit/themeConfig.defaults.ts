@@ -72,20 +72,7 @@ export const DEFAULT_THEME_CONFIG: ShokaXThemeConfig = {
   sidebar: {
     author: "Your Name",
     description: "A brief introduction",
-    social: {
-      github: {
-        url: "https://github.com/yourname",
-        icon: "i-ri-github-fill",
-      },
-      twitter: {
-        url: "https://twitter.com/yourname",
-        icon: "i-ri-twitter-x-line",
-      },
-      email: {
-        url: "mailto:your@email.com",
-        icon: "i-ri-mail-line",
-      },
-    },
+    social: {},
   },
   footer: {
     since: 2025,
@@ -130,6 +117,9 @@ export const DEFAULT_THEME_CONFIG: ShokaXThemeConfig = {
       minSimilarity: 0.4,
     },
   },
+  diagnostics: {
+    suppressFsWatcherMaxListenersWarning: true,
+  },
   nyxPlayer: {
     enable: false,
     preset: "shokax",
@@ -156,7 +146,7 @@ export const DEFAULT_THEME_CONFIG: ShokaXThemeConfig = {
     },
   },
   layout: {
-    mode: "two-column",
+    mode: "three-column",
     rightSidebar: {
       order: ["announcement", "search", "calendar", "recentMoments", "randomPosts", "tagCloud"],
       announcement: true,

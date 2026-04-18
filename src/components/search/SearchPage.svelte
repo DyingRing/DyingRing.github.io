@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
   import { lockBodyScroll } from "@/toolkit/ui/scrollLock";
 
   const isDev = import.meta.env.DEV;
@@ -13,7 +12,7 @@
   }
 
   let { selector = undefined, showSearch = $bindable(false) }: Props = $props();
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 
   let internalVisible = $state(false);
   let rendered = $state(false);

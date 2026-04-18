@@ -1,8 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 import { toCategoryHref, toPostHref } from "@/toolkit/posts/url";
 import "../../styles/collapse.css";
 
@@ -25,7 +24,7 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.props as { category: string };
-const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+const t = getT(currentLocale);
 
 // Get all published posts
 const allPosts = await getCollection("posts");
@@ -104,7 +103,7 @@ let currentSlug = "c";
   <div class="wrap">
     <div class="timeline">
       <h2 class="item header">
-        <a href="/categories/">全部</a>
+        <a href="/categories/">{t("category.all")}</a>
         {
           parentCategories.map((parent) => (
             <>
@@ -156,7 +155,7 @@ let currentSlug = "c";
                 </div>
                 <div class="title">
                   <a href={toPostHref(post.id)} itemprop="url">
-                    <span itemprop="name">{post.data.title || "无标题"}</span>
+                    <span itemprop="name">{post.data.title || t("category.untitled")}</span>
                   </a>
                 </div>
               </article>

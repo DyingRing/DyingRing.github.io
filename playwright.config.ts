@@ -6,10 +6,9 @@ const BASE_URL = `http://${PREVIEW_HOST}:${PREVIEW_PORT}`;
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 3 : 0,
   reporter: [["list"], ["html", { open: "never" }]],
   timeout: 30_000,
   expect: {

@@ -486,6 +486,16 @@ interface HycConfig {
   aiSummary?: HycAiSummaryConfig;
 }
 
+interface DiagnosticsConfig {
+  /**
+   * 是否屏蔽开发/构建/检查期间由 FSWatcher 触发的
+   * `MaxListenersExceededWarning` 输出。
+   * - true：隐藏该已知工具链警告
+   * - false：保留原始 warning 输出
+   */
+  suppressFsWatcherMaxListenersWarning?: boolean;
+}
+
 /**
  * 协议类型
  * CC 4.0 系列：BY, BY-SA, BY-ND, BY-NC, BY-NC-SA, BY-NC-ND
@@ -518,6 +528,8 @@ export interface ShokaXThemeConfig {
   /**
    * 网站语言设置。
    * - "zh-CN"：简体中文
+   * - "zh-TW"：繁体中文
+   * - "ja"：日语
    * - "en"：英文
    * - 默认为 "zh-CN"
    */
@@ -613,6 +625,11 @@ export interface ShokaXThemeConfig {
    * - enable 为总开关，关闭后所有 HYC 子功能不可用
    */
   hyc?: HycConfig;
+
+  /**
+   * 诊断与命令行输出配置。
+   */
+  diagnostics?: DiagnosticsConfig;
 }
 
 type Primitive = string | number | boolean | bigint | symbol | null | undefined;

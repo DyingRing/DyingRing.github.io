@@ -7,6 +7,7 @@ describe("themeConfig", () => {
     const config = defineConfig({});
 
     expect(config).toEqual(DEFAULT_THEME_CONFIG);
+    expect(config.diagnostics?.suppressFsWatcherMaxListenersWarning).toBe(true);
   });
 
   it("deep merges nested objects without dropping untouched siblings", () => {
@@ -88,5 +89,16 @@ describe("themeConfig", () => {
 
     expect(DEFAULT_THEME_CONFIG).toEqual(defaultsSnapshot);
     expect(override).toEqual(overrideSnapshot);
+  });
+
+  it("allows disabling watcher warning suppression", () => {
+    const config = defineConfig({
+      diagnostics: {
+        suppressFsWatcherMaxListenersWarning: false,
+      },
+    });
+
+    expect(config.diagnostics?.suppressFsWatcherMaxListenersWarning).toBe(false);
+    expect(DEFAULT_THEME_CONFIG.diagnostics?.suppressFsWatcherMaxListenersWarning).toBe(true);
   });
 });

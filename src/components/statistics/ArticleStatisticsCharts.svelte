@@ -15,8 +15,7 @@
   import { CanvasRenderer } from "echarts/renderers";
   import type { ComposeOption } from "echarts/core";
   import type { BarSeriesOption, LineSeriesOption } from "echarts/charts";
-  import { getT } from "@/i18n";
-  import themeConfig from "@/theme.config";
+  import { currentLocale, getT } from "@/i18n";
 
   echarts.use([
     BarChart,
@@ -59,7 +58,7 @@
     tagCounts = [],
   }: Props = $props();
 
-  const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+  const t = getT(currentLocale);
 
   let monthlyChartElement = $state<HTMLDivElement | null>(null);
   let categoryChartElement = $state<HTMLDivElement | null>(null);

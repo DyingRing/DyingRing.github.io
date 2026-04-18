@@ -1,6 +1,5 @@
 ---
-import { getT } from "@/i18n";
-import themeConfig from "@/theme.config";
+import { currentLocale, getT } from "@/i18n";
 import { generateRandomBrightColor } from "@/toolkit/tools/generateRandomBrightColor";
 import { covers } from "../Images.astro";
 import { sample } from "es-toolkit";
@@ -19,7 +18,7 @@ interface Props {
 }
 
 const { prevPost, nextPost, nextGradientCover = false } = Astro.props;
-const t = getT((themeConfig.locale as "zh-CN" | "en") || "zh-CN");
+const t = getT(currentLocale);
 ---
 
 <div class="post-nav">

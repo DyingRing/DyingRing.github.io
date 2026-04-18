@@ -25,9 +25,11 @@ const {
 
 <div id="main" class="pjax layout-main-column">
   <slot />
+</div>
+<div class="layout-main-widgets">
   <div class="widgets">
     <Widgets
-      client:visible
+      client:idle
       posts={posts}
       enableRandomPosts={widgetsConfig.randomPosts !== false}
       enableRecentComments={widgetsConfig.recentComments && commentsEnabled}

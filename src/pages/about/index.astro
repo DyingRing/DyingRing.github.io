@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/post/Breadcrumb.astro";
 import PostHeader from "@/components/post/PostHeader.astro";
 import PostFooter from "@/components/post/PostFooter.astro";
 import WalineComments from "@/components/post/WalineComments.svelte";
+import { currentLocale } from "@/i18n";
 import AboutContent, { frontmatter as aboutFrontmatter } from "@/content/about.mdx";
 import themeConfig from "@/theme.config";
 
@@ -68,7 +69,7 @@ const walineConfig = commentsConfig.waline || {};
       itemtype="http://schema.org/Article"
       class="post block"
       data-pagefind-body
-      lang="zh-CN"
+      lang={currentLocale}
     >
       <link itemprop="mainEntityOfPage" href={permalink} />
 
@@ -97,7 +98,7 @@ const walineConfig = commentsConfig.waline || {};
         <WalineComments
           client:visible
           serverURL={walineConfig.serverURL}
-          lang={walineConfig.lang || themeConfig.locale || "zh-CN"}
+          lang={walineConfig.lang || currentLocale}
           dark={walineConfig.dark}
           path={walineConfig.path}
           pagePath={postPath}
