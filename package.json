@@ -10,7 +10,7 @@
     "preview": "bunx --bun astro preview",
     "astro": "bunx --bun astro",
     "check": "bunx --bun astro check --root . && bunx --bun svelte-check",
-    "check-links": "bunx --bun linkinator ./dist --recurse --skip https://astro.build --skip https://beian.miit.gov.cn --skip favicon.svg --clean-urls --silent",
+    "check-links": "lychee ./dist --root-dir ./dist --offline --exclude favicon.svg",
     "lint": "bunx --bun oxlint --type-aware --type-check . --fix",
     "format": "bunx oxfmt .",
     "test": "bun run test:unit",
