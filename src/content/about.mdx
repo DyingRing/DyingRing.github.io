@@ -1,8 +1,8 @@
 ---
 title: 关于
-description: 这里记录我是谁、这个博客在做什么，以及如何和我交流。
-date: 2026-03-29
-updated: 2026-03-29
+description: About
+date: 2026-04-25
+updated: 2026-04-26
 ---
 
 import AboutDialog from "@/components/AboutDialog.svelte";
@@ -41,34 +41,18 @@ export const aboutDialogNodes = [
   },
   {
     id: "identity",
-    text: "我是一名喜欢写作和折腾前端体验的开发者。这里主要记录实践、思考与长期维护过程中的经验。",
+    text: "竹杖芒鞋轻生马，谁怕？一蓑烟雨任平生。",
     options: [
-      {
-        label: "继续：你平时最关注什么？",
-        reply: "你平时最关注哪些方向？",
-        nextId: "focus",
-      },
       {
         label: "返回话题菜单",
         reply: "换个话题。",
         nextId: "intro",
       },
     ],
-  },
-  {
-    id: "focus",
-    text: "我更关注：可维护的内容结构、可读性高的代码、以及长期可演进的主题与组件设计。",
-    options: [
-      {
-        label: "返回话题菜单",
-        reply: "明白了，回到主菜单。",
-        nextId: "intro",
-      },
-    ],
-  },
+  }, 
   {
     id: "blog",
-    text: "内容会覆盖 Astro、Svelte、工程化实践、主题设计，以及一些开发过程中的踩坑和复盘。",
+    text: ".杂七杂八，纯看心情。",
     options: [
       {
         label: "返回话题菜单",
@@ -90,7 +74,7 @@ export const aboutDialogNodes = [
   },
   {
     id: "contact",
-    text: "你可以通过评论区或社交链接联系我。通常我会优先回复和文章主题相关的问题与建议。",
+    text: "你可以通过评论区或社交链接联系我。",
     options: [
       {
         label: "返回话题菜单",
@@ -103,25 +87,15 @@ export const aboutDialogNodes = [
 
 你好，欢迎来到这里。
 
-这个页面会长期维护，主要包含三部分：
-
-1. 我是谁，以及我在持续关注什么。
-2. 这个博客会写什么、怎么写、为什么这样写。
-3. 如果你想交流，可以通过哪些方式联系我。
 
 为了减少“一次性介绍信息”带来的阅读负担，下面放了一个可交互的对话组件。你可以点击不同选项查看对应回复。
 
 <AboutDialog
   client:load
   title="快速对话"
-  intro="选择一个回复选项继续对话。你可以在 about.mdx 里预先定义分支与回复。"
+  intro=""
   authorName={aboutAuthorName}
   authorAvatar={aboutAuthorAvatar}
   nodes={aboutDialogNodes}
 />
 
-你可以直接编辑 `src/content/about.mdx` 里的 `aboutDialogNodes` 来预先定义：
-
-- 对话内容（每个节点的文本）
-- 可选回复（每个按钮）
-- 对应回复（按钮跳转到哪个节点）
