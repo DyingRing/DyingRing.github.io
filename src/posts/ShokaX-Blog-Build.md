@@ -4,6 +4,7 @@ date: 2026-04-25
 description: 从0搭建Astro博客，并部署至Github Pages(以shokaX主题为例)
 categories: [编程]
 tags: [Astro,shokaX]
+cover: ./images/2.png
 draft: false
 ---
 # 前期准备
