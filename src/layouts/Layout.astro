@@ -1,4 +1,5 @@
 ---
+
 import NavBar from "@/components/navbar/NavBar.svelte";
 import Brand from "@/components/Brand.astro";
 import HeaderCover from "@/components/HeaderCover.astro";
@@ -30,6 +31,8 @@ import { toTagHref } from "@/toolkit/posts/url";
 import Footer from "@/components/footer/Footer.astro";
 import type { ImageMetadata } from "astro";
 import { currentLocale } from "@/i18n";
+
+import VinylPlayer from '@/components/VinylPlayer.astro';
 
 // Accept sidebar props from child pages
 interface PostMeta {
@@ -315,6 +318,9 @@ import SearchPage from "@/components/search/SearchPage.svelte";
       <ImageZoom client:idle />
     </div>
     <FloatingToolbar client:idle nyxPlayer={themeConfig.nyxPlayer} />
+
+    <VinylPlayer />
+    
   </body>
 </html>
 
