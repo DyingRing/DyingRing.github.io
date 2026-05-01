@@ -1,4 +1,17 @@
 ---
+title: Astro博客添加背景音乐
+date: 2026-05-01
+description: 给Astro博客添加唱片图标，点击可播放或暂停背景音乐(以shokaX主题为例)
+categories: [编程]
+tags: [Astro,shokaX]
+draft: false
+---
+# 准备音乐和图像
+在`public`目录下放置所要显示的图像`image.png`与要播放的音乐`music.mp3`
+# 创建唱片播放器组件
+在`src/components`目录下创建`VinylPlayer.astro`文件，在`VinylPlayer.astro`中放入以下代码：
+```astro
+---
 // src/components/VinylPlayer.astro
 ---
 
@@ -53,7 +66,7 @@
 <div class="vinyl-player" id="vinyl-player">
 <!-- 👇 替换成你的真实图像路径 -->
   <img 
-    src="/images/study.png" 
+    src="/images/image.png" 
     alt="唱片" 
     class="vinyl-icon" 
     id="vinyl-icon"
@@ -115,3 +128,28 @@
     });
   })();
 </script>
+```
+调整图像至合适位置。
+# 在全局布局`Layout.astro`中引入播放器
+打开`src/layouts/Layout.astro`，在文件顶部添加导入`import VinylPlayer from '../components/VinylPlayer.astro';`，然后在<body> 结束标签前放置组件：`<VinylPlayer />`<br>
+完整如下：
+```astro
+---
+// src/layouts/Layout.astro
+import VinylPlayer from '../components/VinylPlayer.astro';
+// ... 原有的其他导入
+---
+<html lang="zh-CN">
+  <head>
+    <!-- 其他 head 内容 -->
+  </head>
+  <body>
+    <!-- 页面主要内容，例如 <slot /> 或者你主题的特定内容插槽 -->
+    <slot />
+
+    <!-- 唱片背景音乐播放器 -->
+    <VinylPlayer />
+  </body>
+</html>
+```
+运行`bun run dev`来查看效果，若能正常实现，则配置成功。
