@@ -1,4 +1,5 @@
 ---
+import VinylPlayer from '../components/VinylPlayer.astro';
 
 import NavBar from "@/components/navbar/NavBar.svelte";
 import Brand from "@/components/Brand.astro";
@@ -317,8 +318,8 @@ import SearchPage from "@/components/search/SearchPage.svelte";
       <ImageZoom client:idle />
     </div>
     <FloatingToolbar client:idle nyxPlayer={themeConfig.nyxPlayer} />
-
     
+    <VinylPlayer />  
   </body>
 </html>
 
