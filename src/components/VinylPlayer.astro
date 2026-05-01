@@ -66,26 +66,6 @@
 
 <script>
   (function() {
-    // 移除所有隐藏的唱片 UI（保留可见的）
-    const allPlayers = document.querySelectorAll('#vinyl-player');
-    allPlayers.forEach(el => {
-        const style = window.getComputedStyle(el);
-        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) {
-            el.remove();
-        }
-    });
-
-    // 同样处理隐藏的音频元素（虽通常不可见，但可能被设置 hidden 属性或隐藏样式）
-    const allAudios = document.querySelectorAll('audio[data-vinyl]');
-    allAudios.forEach(el => {
-        if (el.hidden || el.style.display === 'none' || el.style.visibility === 'hidden') {
-            el.remove();
-        }
-    });
-
-    // 如果已有可见的音频元素，就不再创建新的
-    if (document.querySelector('audio[data-vinyl]:not([hidden])')) return;
-    
     if (document.getElementById('bg-music-audio')) return;
 
     // 👇 替换成你的真实音乐路径
