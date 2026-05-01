@@ -65,6 +65,7 @@
 </div>
 
 <script>
+  (function() {
     // 移除所有隐藏的唱片 UI（保留可见的）
     const allPlayers = document.querySelectorAll('#vinyl-player');
     allPlayers.forEach(el => {
@@ -84,7 +85,7 @@
 
     // 如果已有可见的音频元素，就不再创建新的
     if (document.querySelector('audio[data-vinyl]:not([hidden])')) return;
-  (function() {
+    
     if (document.getElementById('bg-music-audio')) return;
 
     // 👇 替换成你的真实音乐路径
