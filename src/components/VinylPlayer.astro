@@ -65,24 +65,26 @@
 </div>
 
 <script>
-    // 移除所有多余的 vinyl-player
+  (function() {
+    // 清理所有多余的播放器 UI，只保留最后一个
     const allPlayers = document.querySelectorAll('#vinyl-player');
     if (allPlayers.length > 1) {
-    // 保留第一个，移除后面的
-        for (let i = 1; i < allPlayers.length; i++) {
+    // 移除除了最后一个之外的所有唱片元素
+        for (let i = 0; i < allPlayers.length - 1; i++) {
             allPlayers[i].remove();
         }
     }
-// 同时清理可能残留的音频元素
+
+    // 同样处理可能残留的多个音频元素，只保留最后一个
     const allAudios = document.querySelectorAll('audio[data-vinyl]');
     if (allAudios.length > 1) {
-        for (let i = 1; i < allAudios.length; i++) {
+        for (let i = 0; i < allAudios.length - 1; i++) {
             allAudios[i].remove();
         }
     }
 
-// 如果原本的防重复逻辑还在，保留（接着判断 if (document.querySelector('audio[data-vinyl]')) return; ）
-  (function() {
+    // 然后判断如果已有音频实例，就不再创建新的
+    if (document.querySelector('audio[data-vinyl]')) return;
     if (document.getElementById('bg-music-audio')) return;
 
     // 👇 替换成你的真实音乐路径
