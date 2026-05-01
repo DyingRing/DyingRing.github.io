@@ -52,7 +52,7 @@ cd ./astro-blog-shokax
 # 部署到**GitHub Pages**
 
 ## 创建工作流
-进入`astro-blog-shokax\.github\workflows`目录
+进入`astro-blog-shokax\.github\workflows`目录删去原本的两个工作流，
 创建deploy.yml文件，并将下面的 YAML 粘贴进去。
 ```YAML
 name: Deploy to GitHub Pages
