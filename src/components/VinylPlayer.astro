@@ -65,30 +65,26 @@
 </div>
 
 <script>
-  (function() {
-    // 清理多余播放器，保留第二个
+    // 移除所有隐藏的唱片 UI（保留可见的）
     const allPlayers = document.querySelectorAll('#vinyl-player');
-    if (allPlayers.length >= 2) {
-    // 保留第二个（索引 1），删除其他
-        for (let i = 0; i < allPlayers.length; i++) {
-            if (i !== 1) {
-                allPlayers[i].remove();
-            }
+    allPlayers.forEach(el => {
+        const style = window.getComputedStyle(el);
+        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) {
+            el.remove();
         }
-    }
+    });
 
-    // 同样逻辑处理多余的音频元素
+    // 同样处理隐藏的音频元素（虽通常不可见，但可能被设置 hidden 属性或隐藏样式）
     const allAudios = document.querySelectorAll('audio[data-vinyl]');
-    if (allAudios.length >= 2) {
-        for (let i = 0; i < allAudios.length; i++) {
-            if (i !== 1) {
-                allAudios[i].remove();
-            }
+    allAudios.forEach(el => {
+        if (el.hidden || el.style.display === 'none' || el.style.visibility === 'hidden') {
+            el.remove();
         }
-    }
+    });
 
-    // 如果第二个音频已存在，不再重复创建
-    if (document.querySelector('audio[data-vinyl]')) return;
+    // 如果已有可见的音频元素，就不再创建新的
+    if (document.querySelector('audio[data-vinyl]:not([hidden])')) return;
+  (function() {
     if (document.getElementById('bg-music-audio')) return;
 
     // 👇 替换成你的真实音乐路径
