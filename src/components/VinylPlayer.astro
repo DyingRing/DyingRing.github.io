@@ -1,6 +1,23 @@
 ---
 // src/components/VinylPlayer.astro
 ---
+// 移除所有多余的 vinyl-player
+const allPlayers = document.querySelectorAll('#vinyl-player');
+if (allPlayers.length > 1) {
+  // 保留第一个，移除后面的
+  for (let i = 1; i < allPlayers.length; i++) {
+    allPlayers[i].remove();
+  }
+}
+// 同时清理可能残留的音频元素
+const allAudios = document.querySelectorAll('audio[data-vinyl]');
+if (allAudios.length > 1) {
+  for (let i = 1; i < allAudios.length; i++) {
+    allAudios[i].remove();
+  }
+}
+
+// 如果原本的防重复逻辑还在，保留（接着判断 if (document.querySelector('audio[data-vinyl]')) return;
 
 <style>
   .vinyl-player {
