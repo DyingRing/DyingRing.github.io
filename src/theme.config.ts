@@ -7,7 +7,7 @@ export default defineConfig({
     locale: "zh-CN", // 网站语言（可选）
     brand: {
         title: "DyingRing's Blog",
-        subtitle: "竹杖芒鞋轻生马，谁怕？一蓑烟雨任平生。",
+        subtitle: "竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
         logo: ""
     },
     nav: [
@@ -54,7 +54,7 @@ export default defineConfig({
     ],
     sidebar: {
         author: "DyingRing",
-        description: "竹杖芒鞋轻生马，谁怕？一蓑烟雨任平生。",
+        description: "竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
         social: {
             github: {
                 url: "https://github.com/DyingRing",
