@@ -46,6 +46,7 @@ if (themeConfig.diagnostics?.suppressFsWatcherMaxListenersWarning !== false) {
 // https://astro.build/config
 export default defineConfig({
   site: 'https://dyingring.github.io',
+  base: '/',
   trailingSlash: "always",
   build: {
     format: "directory",
