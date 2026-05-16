@@ -23,7 +23,7 @@ export default defineConfig({
         },
         {
             text: "文章",
-            href: "/",
+            href: "/post/",
             icon: "i-ri-quill-pen-fill",
             dropbox: {
                 enable: true, // 启用下拉菜单
