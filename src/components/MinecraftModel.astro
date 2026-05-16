@@ -26,7 +26,7 @@ const { filePath } = Astro.props;
     // 1. 加载资源与建筑文件
     const [{ resources }, response] = await Promise.all([
       loadDefaultPackResources(),
-      fetch($props.filePath) // 使用传入的 filePath
+      fetch('/my_build.litematic') // 使用传入的 filePath
     ]);
 
     const buffer = await response.arrayBuffer();
