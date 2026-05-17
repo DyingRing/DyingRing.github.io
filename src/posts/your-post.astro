@@ -1,0 +1,16 @@
+---
+// src/pages/posts/your-post.astro
+import Layout from '../../layouts/BaseLayout.astro';
+import LitematicViewer from '../../components/LitematicViewer.jsx';
+---
+
+<Layout title="我的MC建筑展示">
+  <h1>投影</h1>
+  <p>下面是直接从 .litematic 文件渲染的3D模型：</p>
+  
+  <!-- 使用 client:only 确保组件只在客户端执行，避免SSR问题 -->
+  <LitematicViewer client:only="react" litematicUrl="/model/吊塔刷铁机.litematic" autoRotate={true} />
+  
+  <!-- 也可以放置多个模型 -->
+  <!-- <LitematicViewer client:only="react" litematicUrl="/models/another_build.litematic" autoRotate={false} /> -->
+</Layout>
