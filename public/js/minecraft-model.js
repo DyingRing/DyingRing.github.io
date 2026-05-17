@@ -1,0 +1,57 @@
+// public/js/minecraft-model.js
+( async () => {
+  // 从 CDN 动态导入所有依赖
+  const THREE = await import('https://unpkg.com/three@0.160.0/build/three.module.js');
+  const { OrbitControls } = await import('https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js');
+  const { ThreeStructureRenderer, LitematicLoader, loadDefaultPackResources } = await import('https://unpkg.com/@mattzh72/lodestone@latest/dist/lodestone.es.js');
+  const { mat4 } = await import('https://unpkg.com/gl-matrix@3.4.3/esm/index.js');
+
+  try {
+    const canvas = document.getElementById('mc-canvas');
+    if (!canvas) throw new Error('Canvas not found');
+
+    // 加载资源包和建筑文件
+    const [{ resources }, response] = await Promise.all([
+      loadDefaultPackResources(),
+      fetch('/model/吊塔刷铁机.litematic')  // 请确认你的文件路径
+    ]);
+    const buffer = await response.arrayBuffer();
+    const structure = LitematicLoader.load(new Uint8Array(buffer));
+
+    // 初始化 Three.js 场景
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87CEEB);
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.set(10, 8, 10);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+
+    // 渲染结构
+    const structureRenderer = new ThreeStructureRenderer(canvas, structure, resources);
+    scene.add(structureRenderer.group);
+    const view = mat4.create();
+    mat4.lookAt(view, [10, 8, 10], [0, 0, 0], [0, 1, 0]);
+    structureRenderer.drawStructure(view);
+
+    // 轨道控制器
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 0, 0);
+    controls.enableDamping = true;
+    controls.update();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+    });
+  } catch (err) {
+    console.error('Minecraft model error:', err);
+  }
+})();
